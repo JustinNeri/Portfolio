@@ -549,7 +549,7 @@ export const projects: Project[] = [
     // signed-in app (dashboard, slot picker, consultation record) to
     // public/projects/consulttrack/ and list them here.
     gallery: [],
-    featured: true,
+    featured: false,
     published: true,
     source: {
       repository: "https://github.com/JustinNeri/ConsultTrack",
@@ -647,7 +647,8 @@ export const projects: Project[] = [
   },
 
   // ── More projects ──────────────────────────────────────────────────────
-  // Not on the home page (featured: false); listed on /projects.
+  // Every published project is listed on /projects; `featured` picks the
+  // three shown on the home page.
 
   {
     slug: "tulongguro",
@@ -714,7 +715,7 @@ export const projects: Project[] = [
     },
     // TODO(justin): add in-app screenshots (grading review, dashboards).
     gallery: [],
-    featured: false,
+    featured: true,
     published: true,
     source: {
       repository: "https://github.com/Damudachi/TulongGuro",
@@ -915,7 +916,21 @@ export const skillGroups: SkillGroup[] = [
 // ── Helpers (no need to edit) ────────────────────────────────────────────
 
 export const publishedProjects = projects.filter((p) => p.published);
-export const featuredProjects = publishedProjects.filter((p) => p.featured).slice(0, 3);
+/**
+ * The order of the featured projects on the home page ("Selected work" and
+ * "Featured projects"). A featured project missing from this list goes last.
+ */
+const featuredOrder = ["workbud", "tulongguro", "libspace"];
+
+const featuredRank = (slug: string) => {
+  const i = featuredOrder.indexOf(slug);
+  return i === -1 ? featuredOrder.length : i;
+};
+
+export const featuredProjects = publishedProjects
+  .filter((p) => p.featured)
+  .sort((x, y) => featuredRank(x.slug) - featuredRank(y.slug))
+  .slice(0, 3);
 
 /** "Thesis project", "Group project"… or null when there is nothing to say. */
 export function projectKindLabel(kind: ProjectKind): string | null {

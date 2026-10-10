@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { BrowserFrame, hostOf } from "@/components/browser-frame";
+import { projectMeta } from "@/components/project-card";
 import { ProjectLinks } from "@/components/project-links";
 import { TechList } from "@/components/tech-list";
 import type { Project } from "@/data/portfolio";
@@ -18,6 +19,7 @@ export function ProjectFeature({
 }) {
   const href = `/projects/${project.slug}`;
   const number = String(index + 1).padStart(2, "0");
+  const meta = projectMeta(project);
 
   return (
     <article
@@ -41,7 +43,9 @@ export function ProjectFeature({
       <div className={cn("min-w-0", project.cover ? "lg:col-span-5" : "lg:col-span-12")}>
         <p className="label">
           <span className="text-ink">{number}</span>
-          {project.year ? <> — {project.year}</> : null}
+          {meta.map((part) => (
+            <span key={part}> · {part}</span>
+          ))}
         </p>
         <h3
           id={`project-${project.slug}`}
