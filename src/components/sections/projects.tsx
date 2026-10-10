@@ -3,13 +3,13 @@ import { Reveal } from "@/components/reveal";
 import { Section } from "@/components/section";
 import { featuredProjects, sectionCopy } from "@/data/portfolio";
 
-export function Projects() {
+export function Projects({ index }: { index: string }) {
   if (featuredProjects.length === 0) return null;
 
   return (
     <Section
       id="projects"
-      index="02"
+      index={index}
       title="Featured projects"
       lede={sectionCopy.projects}
     >

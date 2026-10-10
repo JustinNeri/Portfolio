@@ -4,11 +4,11 @@ import { navLinks, site } from "@/data/portfolio";
 
 export type NavItem = { label: string; href: string; external?: boolean };
 
-/** Section links, plus the résumé once a real file is configured. */
+/** Section links, plus the CV once a real file is configured. */
 function getNavItems(): NavItem[] {
   const items: NavItem[] = [...navLinks];
-  if (site.resumeUrl) {
-    items.push({ label: "Résumé", href: site.resumeUrl, external: true });
+  if (site.cvUrl) {
+    items.push({ label: "CV", href: site.cvUrl, external: true });
   }
   return items;
 }
@@ -24,7 +24,7 @@ export function SiteHeader() {
           className="group flex items-baseline gap-3"
           aria-label={`${site.name} — home`}
         >
-          <span className="font-serif text-2xl leading-none tracking-tight transition-colors group-hover:text-ink">
+          <span className="font-display text-xl leading-none transition-colors group-hover:text-ink">
             {site.initials}
           </span>
           <span aria-hidden="true" className="label hidden sm:inline">

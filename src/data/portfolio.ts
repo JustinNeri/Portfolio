@@ -10,9 +10,12 @@
  *  - `null` means "not supplied yet". The site hides anything that is null
  *    (a link, a section, a button) instead of showing a placeholder.
  *  - Search this file for `TODO(justin)` to find everything waiting on you.
- *  - Project facts were taken from the public GitHub repositories on
- *    2026-10-10. Each project's `source` block records which repository and
- *    which files support its description.
+ *  - Personal details, education, certifications and skills come from your
+ *    CV. Project facts were checked against the public GitHub repositories
+ *    on 2026-10-10; each project's `source` block records which repository
+ *    and files support its description.
+ *  - Search for `CONFLICT` to find places where the CV and a repository
+ *    (or your earlier brief) disagree and you should decide which is right.
  */
 
 // ── Types ────────────────────────────────────────────────────────────────
@@ -34,8 +37,32 @@ export type SiteConfig = {
     github: string | null;
     linkedin: string | null;
   };
-  /** Path under /public (e.g. "/resume.pdf") or a full URL. */
-  resumeUrl: string | null;
+  /** Path under /public (e.g. "/cv/my-cv.pdf") or a full URL. */
+  cvUrl: string | null;
+};
+
+export type Education = {
+  school: string;
+  degree: string;
+  period: string;
+  /** Honours or distinctions, exactly as you would state them. */
+  honors: string[];
+};
+
+export type Certification = {
+  name: string;
+  /** Leave "" if unknown; the issuer line is then hidden. */
+  issuer: string;
+  /** Link to the credential, if you have one. Hidden while null. */
+  url: string | null;
+};
+
+export type Experience = {
+  role: string;
+  organization: string;
+  period: string;
+  summary: string;
+  highlights: string[];
 };
 
 export type ProjectImage = {
@@ -109,53 +136,92 @@ export type Skill = {
 // ── Identity & contact ───────────────────────────────────────────────────
 
 export const site: SiteConfig = {
+  // The CV gives the name as "Justin Neri A. Pangilinan"; the site uses the
+  // form without the middle initial. Change it here if you prefer the other.
   name: "Justin Neri Pangilinan",
   initials: "JNP",
-  role: "Computer Science Student & Aspiring Software Engineer",
+
+  // CONFLICT: your first brief asked for "Computer Science Student & Aspiring
+  // Software Engineer"; the CV headline is "Software Engineering Student |
+  // Full-Stack Developer", while the degree is BS Computer Science. The CV
+  // headline is used here — edit if you want the other.
+  role: "Software Engineering Student & Full-Stack Developer",
   school: "Holy Angel University",
-  location: "Philippines",
+  // Province-level only, on purpose. The town on the CV is left out.
+  location: "Pampanga, Philippines",
   intro:
-    "I build useful web applications — tools that take everyday paperwork like time logs, consultation records and room logbooks, and make them easier to keep.",
+    "I'm a fourth-year Computer Science student who has built and deployed three full-stack web applications — for OJT tracking, library room reservations and capstone consultations.",
   seoDescription:
-    "Portfolio of Justin Neri Pangilinan, a fourth-year Computer Science student at Holy Angel University building practical web applications.",
+    "Portfolio of Justin Neri Pangilinan, a fourth-year Computer Science student at Holy Angel University who builds full-stack web applications with React, Node.js and PostgreSQL.",
 
   // TODO(justin): set your production URL once deployed, e.g. "https://justinneri.dev".
   url: null,
 
   contact: {
-    // TODO(justin): add the email address you want recruiters to use.
-    email: null,
+    email: "justinneripangilinan2004@gmail.com",
     github: "https://github.com/JustinNeri",
-    // TODO(justin): add your LinkedIn profile URL.
-    linkedin: null,
+    linkedin: "https://www.linkedin.com/in/justin-neri-pangilinan-564527398/",
   },
 
-  // TODO(justin): put your résumé at public/resume.pdf and set this to "/resume.pdf".
-  resumeUrl: null,
+  // TODO(justin): this is the PNG image of your CV that you attached. Replace
+  // it with a PDF (e.g. public/cv/justin-neri-pangilinan-cv.pdf) and update
+  // this path — a PDF is sharper, searchable and readable by screen readers.
+  cvUrl: "/cv/justin-neri-pangilinan-cv.png",
 };
 
 // ── About ────────────────────────────────────────────────────────────────
-// Written only from what you told me plus what your repositories show.
-// No experience, awards or certifications are claimed here.
+// Based on the Professional Summary in your CV.
 
 export const about = {
   paragraphs: [
-    "I'm Justin, a fourth-year Computer Science student at Holy Angel University in the Philippines, working toward a career as a software engineer.",
-    "What draws me to software engineering is the problem-solving: taking something tedious or easy to get wrong, and working out a clear, dependable way to handle it.",
-    "Most of what I build starts from a practical need close to student life — logging internship hours, booking a thesis consultation, reserving a library room — and I like carrying an idea through to an application people can open and use.",
+    "I'm Justin, a fourth-year Computer Science student at Holy Angel University, working toward a career as a software engineer.",
+    "I've built and deployed three full-stack applications: an OJT hours and expense tracker, a library discussion-room reservation system, and a capstone consultation system.",
+    "I work mostly with React, Node.js/Express and PostgreSQL, and I care about the parts users never see — secure APIs, role-based workflows, and rules enforced in the database, like preventing two groups from booking the same room.",
   ],
   facts: [
-    { label: "Studying", value: "Computer Science, fourth year" },
-    { label: "At", value: "Holy Angel University" },
-    { label: "Based in", value: "Philippines" },
-    { label: "Focus", value: "Practical web applications" },
+    { label: "Degree", value: "BS Computer Science" },
+    { label: "University", value: "Holy Angel University" },
+    { label: "Based in", value: "Pampanga, Philippines" },
+    { label: "Focus", value: "Full-stack web development" },
   ],
 };
 
+// ── Education, certifications, experience ────────────────────────────────
+
+export const education: Education[] = [
+  {
+    school: "Holy Angel University",
+    degree: "Bachelor of Science in Computer Science",
+    period: "2023 – Present",
+    honors: ["Consistent President's Lister"],
+  },
+];
+
+// Names are as written on your CV. Add a credential `url` to make one a link.
+// TODO(justin): add dates if you want them shown.
+export const certifications: Certification[] = [
+  { name: "IT Fundamentals (ITF+) Certification", issuer: "CompTIA", url: null },
+  { name: "Responsive Web Design Developer Certification", issuer: "freeCodeCamp", url: null },
+  { name: "Relational Database Certification", issuer: "freeCodeCamp", url: null },
+  { name: "JavaScript Essentials 1", issuer: "Cisco Networking Academy", url: null },
+  { name: "CCNA: Introduction to Networks Badge", issuer: "Cisco Networking Academy", url: null },
+  { name: "Endpoint Security Badge", issuer: "Cisco Networking Academy", url: null },
+  { name: "Cloud Foundations Training Badge", issuer: "AWS Academy", url: null },
+  // TODO(justin): the CV doesn't name the issuer of this one.
+  { name: "Introduction to Figma Certification", issuer: "", url: null },
+];
+
+// Your CV lists no work experience, so this is empty and the Experience
+// section stays hidden. TODO(justin): add entries here (your OJT placement,
+// for example) and the section appears automatically.
+export const experience: Experience[] = [];
+
 /** Short introductions shown under each section heading. */
 export const sectionCopy = {
-  projects: "Web applications built around records people used to keep on paper.",
-  skills: "What I've worked with, listed beside the projects that used it.",
+  projects: "Three full-stack applications, each built, deployed and documented.",
+  skills: "What I work with. Where a featured project uses it, the project is named.",
+  education: "My degree, and the certifications and badges I've completed.",
+  experience: "Where I've worked.",
   contact:
     "I'm pursuing a career as a software engineer. If you'd like to talk about a role, or about any of the projects here, I'd be glad to hear from you.",
 };
@@ -166,7 +232,7 @@ export const projects: Project[] = [
   {
     slug: "workbud",
     title: "WorkBud",
-    tagline: "OJT hours and expense tracker",
+    tagline: "OJT Hours and Expense Tracker",
     description:
       "A mobile-first, installable web app for tracking on-the-job-training hours and what a placement costs. You log each day's time in, time out, break and expenses, and it keeps a running hour total, an itemised view of spending, and an export to hand to a coordinator.",
     problem:
@@ -204,14 +270,14 @@ export const projects: Project[] = [
       },
     ],
 
-    // TODO(justin): confirm and write your contribution in your own words.
-    // Source material: AI-USAGE.md in the repository, section "3. Who wrote what",
-    // where you describe the parts you wrote yourself (the jobs table and
-    // multi-job design, logo, visual design and colour tokens, routing and route
-    // guards, the activity feed, Supabase and Vercel setup) and the parts that
-    // were drafted with AI assistance. If you publish a contribution statement,
-    // keep it consistent with that document.
-    contribution: null,
+    // From your CV's WorkBud bullets.
+    // CONFLICT: the CV says you built the Express REST API; the repository's
+    // AI-USAGE.md (entry 1.16) says the Express server was written by Claude
+    // and reviewed by you, and section 3 lists the parts you wrote yourself.
+    // The last sentence below acknowledges that. Reword this so it matches
+    // what you are comfortable explaining in an interview.
+    contribution:
+      "I built and deployed WorkBud as an installable web app with a React interface, an Express REST API and a PostgreSQL database on Supabase. I designed the five-table schema with Row Level Security to isolate each user's data, secured API requests with token authentication, server-side validation and rate limiting, and documented the setup, deployment and security controls for the Vercel release. The project was built with AI assistance, which is documented in the repository.",
 
     nextSteps: [
       "Unit tests for the shift and date maths before adding new features.",
@@ -300,7 +366,7 @@ export const projects: Project[] = [
   {
     slug: "consulttrack",
     title: "ConsultTrack",
-    tagline: "Thesis consultation booking and records",
+    tagline: "Capstone Consultation Management System",
     description:
       "A consultation system for a university capstone program, built for Holy Angel University. A thesis group books time from the hours their adviser has published; the adviser approves, offers another time, or declines with a reason. After the session, minutes, attendance and action items are recorded.",
     problem:
@@ -337,10 +403,11 @@ export const projects: Project[] = [
       },
     ],
 
-    // TODO(justin): confirm your role. You are the only listed GitHub
-    // contributor, but that alone doesn't establish whether this was solo work,
-    // part of a capstone group, or built with outside help.
-    contribution: null,
+    // From your CV's ConsultTrack bullets (14 migrations verified in the repo).
+    // TODO(justin): the CV calls this a capstone consultation system — if it
+    // was built with a group, say which parts were yours.
+    contribution:
+      "I built and deployed the system, covering adviser schedules, booking approvals, counter-proposals and cancellations. I implemented 14 PostgreSQL schema migrations with Row Level Security, added email OTP registration, role assignment and rate-limited account recovery, and brought consultation follow-ups into one place with message threads, unread tracking and printable records of minutes, attendance and action items.",
 
     nextSteps: [
       "Email notifications and reminders — notices are in-app only today.",
@@ -388,7 +455,7 @@ export const projects: Project[] = [
   {
     slug: "libspace",
     title: "LibSpace",
-    tagline: "Library discussion-room reservations",
+    tagline: "Library Discussion Room Reservation System",
     description:
       "A room-reservation app for the Holy Angel University library. Students check real-time availability of the discussion rooms and request one remotely; front-desk staff approve requests, check groups in and manage rooms and opening hours.",
     problem:
@@ -413,6 +480,11 @@ export const projects: Project[] = [
           "The library's booking rules are enforced by a database trigger, and the student email restriction is a check constraint, so a forged client can't skip them.",
       },
       {
+        title: "ID photos stay private",
+        detail:
+          "Student ID photos go to a private storage bucket where each user can only write to their own folder, and they are shown through short-lived signed URLs rather than public links.",
+      },
+      {
         title: "Staff accounts can't be self-assigned",
         detail:
           "Everyone signs up as a student. An account becomes staff only when the role is changed directly in the database.",
@@ -424,14 +496,17 @@ export const projects: Project[] = [
       },
     ],
 
-    // TODO(justin): confirm your role (solo or group, course or personal project).
-    contribution: null,
+    // From your CV's LibSpace bullets (exclusion constraint, private ID-photo
+    // bucket and signed URLs verified in the repo).
+    // TODO(justin): if this was a group project, say which parts were yours.
+    contribution:
+      "I developed the reservation system for the library's 10 discussion rooms, including live availability, student bookings and staff approvals. I prevented overlapping bookings with a PostgreSQL exclusion constraint, automated booking limits, notifications, check-in/check-out and no-show releases, and protected student ID photos with private storage, per-user access policies and signed URLs.",
 
     technologies: [
       "React 19",
       "Vite",
       "Tailwind CSS 4",
-      "Supabase (Postgres, Auth, Realtime)",
+      "Supabase (Postgres, Auth, Realtime, Storage)",
       "Row Level Security",
       "Vercel",
     ],
@@ -453,7 +528,7 @@ export const projects: Project[] = [
     published: true,
     source: {
       repository: "https://github.com/JustinNeri/LibSpace",
-      files: ["README.md", "package.json", "supabase/schema.sql (file list)"],
+      files: ["README.md", "package.json", "supabase/schema.sql", "src/components/IdPhotoStrip.jsx"],
       notes:
         "Not a fork; you are the only listed GitHub contributor. Team size and course context are not stated in the repository. Live URL responded 200 on 2026-10-10; the cover is a capture of that live sign-in page. Features are as documented in the README — the signed-in flows were not exercised.",
     },
@@ -517,9 +592,9 @@ export const projects: Project[] = [
 ];
 
 // ── Skills ───────────────────────────────────────────────────────────────
-// Confirmed skills are backed by a dependency file or README in one of the
-// featured repositories. `confirmed: false` entries are hidden from the site;
-// flip them to true if they're accurate, or delete them.
+// Taken from the Technical Skills section of your CV, regrouped into three
+// lists. `usedIn` names the featured projects whose code or dependency files
+// show the skill. `confirmed: false` entries are hidden from the site.
 
 export const skillGroups: SkillGroup[] = [
   {
@@ -527,72 +602,76 @@ export const skillGroups: SkillGroup[] = [
     skills: [
       { name: "React", usedIn: ["workbud", "consulttrack", "libspace"], confirmed: true },
       { name: "JavaScript", usedIn: ["workbud", "consulttrack", "libspace"], confirmed: true },
-      { name: "Tailwind CSS", usedIn: ["workbud", "consulttrack", "libspace"], confirmed: true },
       { name: "HTML & CSS", usedIn: ["workbud", "consulttrack", "libspace"], confirmed: true },
-      { name: "React Router", usedIn: ["workbud"], confirmed: true },
-      { name: "Progressive Web Apps", usedIn: ["workbud"], confirmed: true },
+      { name: "Tailwind CSS", usedIn: ["workbud", "consulttrack", "libspace"], confirmed: true },
+      { name: "Vite", usedIn: ["workbud", "consulttrack", "libspace"], confirmed: true },
+      {
+        name: "Flutter & Dart",
+        usedIn: [],
+        confirmed: true,
+        note: "On your CV. Seen in FINAL_CLOUDCOM and CLOUDCOM_pokemon, which aren't featured.",
+      },
       {
         name: "TypeScript",
         usedIn: [],
         confirmed: false,
-        note: "TODO(justin): this portfolio is TypeScript, but none of the three featured repos are. Confirm before listing.",
+        note: "TODO(justin): not on your CV and not in the featured repos. This portfolio is TypeScript — list it only if you're comfortable with it.",
       },
       {
         name: "Next.js",
         usedIn: [],
         confirmed: false,
-        note: "TODO(justin): same as TypeScript — confirm before listing.",
-      },
-      {
-        name: "Flutter",
-        usedIn: [],
-        confirmed: false,
-        note: "TODO(justin): seen in FINAL_CLOUDCOM and CLOUDCOM_pokemon (Dart). Confirm your role in those before listing.",
+        note: "TODO(justin): same as TypeScript.",
       },
     ],
   },
   {
     title: "Backend & Database",
     skills: [
-      { name: "Node.js", usedIn: ["workbud", "consulttrack"], confirmed: true },
-      { name: "Express", usedIn: ["workbud", "consulttrack"], confirmed: true },
-      { name: "REST APIs", usedIn: ["workbud", "consulttrack"], confirmed: true },
-      { name: "PostgreSQL", usedIn: ["workbud", "consulttrack", "libspace"], confirmed: true },
-      { name: "Supabase", usedIn: ["workbud", "consulttrack", "libspace"], confirmed: true },
-      { name: "Row Level Security", usedIn: ["workbud", "libspace"], confirmed: true },
+      { name: "Node.js & Express", usedIn: ["workbud", "consulttrack"], confirmed: true },
+      { name: "REST API development", usedIn: ["workbud", "consulttrack"], confirmed: true },
+      {
+        name: "Authentication & role-based access",
+        usedIn: ["workbud", "consulttrack", "libspace"],
+        confirmed: true,
+      },
+      { name: "PostgreSQL & SQL", usedIn: ["workbud", "consulttrack", "libspace"], confirmed: true },
+      { name: "Row Level Security", usedIn: ["workbud", "consulttrack", "libspace"], confirmed: true },
+      {
+        name: "SQL functions, triggers & constraints",
+        usedIn: ["workbud", "libspace"],
+        confirmed: true,
+      },
+      { name: "Rate limiting", usedIn: ["workbud", "consulttrack"], confirmed: true },
       {
         name: "Python",
         usedIn: [],
-        confirmed: false,
-        note: "TODO(justin): seen in OPSYS_FINAL. Confirm before listing.",
+        confirmed: true,
+        note: "On your CV. Seen in OPSYS_FINAL, which isn't featured.",
       },
       {
-        name: "Vision-language model integration",
+        name: "Java",
         usedIn: [],
-        confirmed: false,
-        note: "TODO(justin): from your TulongGuro description; no public code to verify.",
+        confirmed: true,
+        note: "On your CV. CONFLICT (minor): none of your public repositories contain Java — fine to keep, just be ready to talk about it.",
       },
     ],
   },
   {
     title: "Tools",
     skills: [
-      { name: "Git & GitHub", usedIn: ["workbud", "consulttrack", "libspace"], confirmed: true },
-      { name: "Vercel", usedIn: ["workbud", "consulttrack", "libspace"], confirmed: true },
-      { name: "Vite", usedIn: ["workbud", "consulttrack", "libspace"], confirmed: true },
-      { name: "npm", usedIn: ["workbud", "consulttrack", "libspace"], confirmed: true },
-      { name: "oxlint", usedIn: ["workbud", "libspace"], confirmed: true },
       {
-        name: "Bash",
-        usedIn: [],
-        confirmed: false,
-        note: "TODO(justin): seen in several small shell-script repos. Confirm before listing.",
+        name: "Supabase (Auth, Realtime, Storage)",
+        usedIn: ["workbud", "consulttrack", "libspace"],
+        confirmed: true,
       },
+      { name: "Vercel", usedIn: ["workbud", "consulttrack", "libspace"], confirmed: true },
+      { name: "Git & GitHub", usedIn: ["workbud", "consulttrack", "libspace"], confirmed: true },
       {
         name: "Figma",
         usedIn: [],
-        confirmed: false,
-        note: "TODO(justin): not verified anywhere — delete if you don't use it.",
+        confirmed: true,
+        note: "Not in the CV's skills list, but you hold an Introduction to Figma certification. Set to false to hide.",
       },
     ],
   },
@@ -611,6 +690,7 @@ export const navLinks = [
   { label: "About", href: "/#about" },
   { label: "Projects", href: "/#projects" },
   { label: "Skills", href: "/#skills" },
+  { label: "Education", href: "/#education" },
   { label: "Contact", href: "/#contact" },
 ] as const;
 

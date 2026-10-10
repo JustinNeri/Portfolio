@@ -28,22 +28,32 @@ Components only read from it.
 
 | To change | Edit |
 | --- | --- |
-| Name, role, intro, email, GitHub, LinkedIn, résumé, site URL | `site` |
+| Name, headline, intro, email, GitHub, LinkedIn, CV link, site URL | `site` |
 | About paragraphs and the fact list | `about` |
+| Degree and honours | `education` |
+| Certifications and badges | `certifications` |
+| Work experience (empty for now, so the section is hidden) | `experience` |
 | The line under each section heading | `sectionCopy` |
 | Projects (text, links, screenshots, case-study content) | `projects` |
 | Skills | `skillGroups` |
 
 Rules the site follows:
 
-- **`null` hides things.** A missing email, LinkedIn, résumé, live demo or
-  repository link is simply not rendered — there are no placeholder links.
-- **`published: false`** keeps a project off the site entirely (no card, no
-  page, not in the sitemap). **`featured: true`** puts it on the home page;
-  only the first three featured projects are shown.
-- **`confirmed: false`** keeps a skill hidden until you confirm it.
-- **`contribution: null`** hides the "My contribution" block on a case study.
-- Search the file for **`TODO(justin)`** to find everything waiting on you.
+- **`null` or an empty list hides things.** A missing link, an empty
+  `experience` list or a certification without a `url` is simply not rendered —
+  there are no placeholder links.
+- **`published: false`** keeps a project off the site entirely. **`featured: true`**
+  puts it on the home page; only the first three featured projects are shown.
+- **`confirmed: false`** keeps a skill hidden.
+- Search the file for **`TODO(justin)`** to find what is waiting on you, and
+  for **`CONFLICT`** to find places where your CV, your repositories and your
+  earlier brief disagree.
+
+### Replacing the CV
+
+The "View CV" links point at `public/cv/justin-neri-pangilinan-cv.png`, the
+image you supplied. To use a PDF instead, put it in `public/cv/` and change
+`site.cvUrl` to its path, for example `"/cv/justin-neri-pangilinan-cv.pdf"`.
 
 ### Adding a screenshot
 
@@ -51,35 +61,31 @@ Rules the site follows:
 2. Reference it from the project's `cover` or `gallery` with its real pixel
    `width` and `height` and a descriptive `alt`.
 
-### Adding your résumé
-
-Save it as `public/resume.pdf` and set `site.resumeUrl` to `"/resume.pdf"`. A
-Résumé link then appears in the navigation and the Contact section.
-
 ## What you still need to supply
 
-- [ ] **Email address** — `site.contact.email`
-- [ ] **LinkedIn URL** — `site.contact.linkedin`
-- [ ] **Résumé file** — `public/resume.pdf` + `site.resumeUrl`
-- [ ] **Production URL** — `site.url` (only needed for a custom domain; on
-      Vercel the project's production URL is used automatically)
-- [ ] **Your contribution to each project** — `contribution` on WorkBud,
-      ConsultTrack and LibSpace. Notes beside each field say what to confirm.
+- [ ] **A PDF of your CV** — the current file is a 588×801 image: small, not
+      searchable and not readable by screen readers.
 - [ ] **In-app screenshots** — the three covers are captures of each app's
       live sign-in page. ConsultTrack and LibSpace have no other screenshots;
       WorkBud's gallery uses the small images from its repository.
-- [ ] **Skills to confirm** — TypeScript, Next.js, Flutter, Python, VLM
-      integration, Bash and Figma are listed with `confirmed: false`.
+- [ ] **Review the three "My contribution" statements** — they are taken from
+      your CV. See the `CONFLICT` note on WorkBud.
+- [ ] **Work experience** — none is on the CV; add entries to `experience`
+      (for example your OJT placement) to show the section.
+- [ ] **Certification details** — issuer of the Figma certification, plus
+      dates and credential links if you want them shown.
+- [ ] **Production URL** — `site.url` (only needed for a custom domain).
 - [ ] **TulongGuro and Carepanion** — draft entries exist but are unpublished,
       because no public code was available to describe them from.
 
-## Where the project descriptions come from
+## Where the content comes from
 
-Project facts were taken from the public repositories at
-[github.com/JustinNeri](https://github.com/JustinNeri) on 2026-10-10. Each
-project's `source` block in the data file lists the repository and the files
-its description is based on (README, dependency manifests, docs). Features
-are as documented there; the signed-in flows of the live apps were not tested.
+- Personal details, education, certifications and skills: your CV.
+- Project facts: the public repositories at
+  [github.com/JustinNeri](https://github.com/JustinNeri), checked on
+  2026-10-10. Each project's `source` block lists the repository and files its
+  description is based on. Features are as documented there; the signed-in
+  flows of the live apps were not tested.
 
 ## Deploy to Vercel
 
@@ -99,27 +105,28 @@ social-sharing cards point at it.
 src/
 ├── app/
 │   ├── layout.tsx              fonts, metadata, header and footer
-│   ├── page.tsx                home page: hero, about, projects, skills, contact
+│   ├── page.tsx                home page: the ordered list of sections
 │   ├── projects/[slug]/page.tsx  case-study page for each published project
 │   ├── not-found.tsx
 │   ├── opengraph-image.tsx     social-sharing card
 │   ├── sitemap.ts, robots.ts, icon.svg
-│   └── globals.css             colour tokens (light and dark) and shared styles
+│   └── globals.css             colour tokens and shared styles
 ├── components/
 │   ├── sections/               one file per home-page section
 │   ├── ui/                     shadcn/ui components (button, sheet)
 │   └── …                       header, mobile menu, footer, project pieces
 └── data/
     └── portfolio.ts            ← your content
-public/projects/<slug>/         project screenshots
+public/
+├── cv/                         your CV
+└── projects/<slug>/            project screenshots
 ```
 
 ## Design notes
 
-- **Palette** — paper, ink and one accent (ledger red), defined as CSS
-  variables at the top of `globals.css`. The theme follows the visitor's
-  light or dark system setting.
-- **Type** — Instrument Serif for display, Geist for text, Geist Mono for labels.
-- **Motion** — sections fade up once as they scroll in and the underline
-  beneath the name draws on load. Both are disabled under
-  `prefers-reduced-motion`.
+- **Palette** — charcoal background, off-white text and one quiet purple
+  accent, defined as CSS variables at the top of `globals.css`. The site has a
+  single dark theme.
+- **Type** — Geist for headings and text, Geist Mono for small labels.
+- **Motion** — sections fade up once as they scroll in. This is disabled under
+  `prefers-reduced-motion`, and content still appears if scripts fail to load.

@@ -10,7 +10,7 @@ function usedInLabel(slugs: string[]): string | null {
   return titles.length > 0 ? titles.join(", ") : null;
 }
 
-export function Skills() {
+export function Skills({ index }: { index: string }) {
   const groups = skillGroups
     .map((group) => ({ ...group, skills: group.skills.filter((skill) => skill.confirmed) }))
     .filter((group) => group.skills.length > 0);
@@ -20,7 +20,7 @@ export function Skills() {
   return (
     <Section
       id="skills"
-      index="03"
+      index={index}
       title="Skills"
       lede={sectionCopy.skills}
     >

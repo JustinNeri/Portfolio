@@ -10,9 +10,9 @@ export default function NotFound() {
   return (
     <div className="page-grid">
       <div aria-hidden="true" className="hidden lg:block" />
-      <div className="margin-line min-w-0 py-24 lg:py-36">
+      <div className="min-w-0 py-24 lg:py-36">
         <p className="label text-ink">404</p>
-        <h1 className="mt-4 font-serif text-6xl leading-none tracking-tight sm:text-7xl">
+        <h1 className="mt-4 font-display text-5xl leading-none sm:text-6xl">
           No entry on this page.
         </h1>
         <p className="mt-5 max-w-md text-lg leading-relaxed text-muted-foreground">

@@ -45,7 +45,7 @@ export function MobileNav({ items }: { items: NavItem[] }) {
                       target="_blank"
                       rel="noreferrer"
                       onClick={close}
-                      className="flex items-baseline gap-4 py-4 font-serif text-3xl"
+                      className="flex items-baseline gap-4 py-4 font-display text-2xl"
                     >
                       <span aria-hidden="true" className="label w-5 text-ink">
                         {String(i + 1).padStart(2, "0")}
@@ -56,7 +56,7 @@ export function MobileNav({ items }: { items: NavItem[] }) {
                     <Link
                       href={item.href}
                       onClick={close}
-                      className="flex items-baseline gap-4 py-4 font-serif text-3xl"
+                      className="flex items-baseline gap-4 py-4 font-display text-2xl"
                     >
                       <span aria-hidden="true" className="label w-5 text-ink">
                         {String(i + 1).padStart(2, "0")}

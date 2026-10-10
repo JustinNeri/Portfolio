@@ -45,7 +45,7 @@ export function ProjectFeature({
         </p>
         <h3
           id={`project-${project.slug}`}
-          className="mt-3 font-serif text-4xl leading-none tracking-tight sm:text-5xl"
+          className="mt-3 font-display text-3xl leading-none sm:text-4xl"
         >
           <Link href={href} className="transition-colors hover:text-ink">
             {project.title}

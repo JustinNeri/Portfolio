@@ -71,11 +71,11 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
 
   return (
     <article aria-labelledby="project-title" className="page-grid">
-      <div aria-hidden="true" className="hidden pt-[4.4rem] lg:block">
+      <div aria-hidden="true" className="hidden pt-[4.3rem] lg:block">
         <span className="label text-ink">{String(position + 1).padStart(2, "0")}</span>
       </div>
 
-      <div className="margin-line min-w-0 pb-20 pt-10 lg:pb-28 lg:pt-16">
+      <div className="min-w-0 pb-20 pt-10 lg:pb-28 lg:pt-16">
         <Link href="/#projects" className="link inline-flex items-center gap-1.5 py-1 text-sm">
           <ArrowLeft aria-hidden="true" className="size-4" />
           All projects
@@ -87,7 +87,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
           </p>
           <h1
             id="project-title"
-            className="mt-4 font-serif text-[clamp(3rem,10vw,6.5rem)] leading-[0.92] tracking-[-0.02em]"
+            className="mt-4 font-display text-[clamp(2.25rem,9vw,5.5rem)] leading-[0.95]"
           >
             {project.title}
           </h1>
@@ -137,7 +137,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
               <dl className="space-y-8">
                 {project.decisions.map((decision) => (
                   <div key={decision.title}>
-                    <dt className="font-serif text-2xl leading-tight">{decision.title}</dt>
+                    <dt className="font-display text-xl leading-tight">{decision.title}</dt>
                     <dd className="mt-2 leading-relaxed text-muted-foreground">
                       {decision.detail}
                     </dd>
@@ -209,7 +209,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
           <nav aria-label="More projects" className="border-t border-border pt-10">
             <Link href={`/projects/${next.slug}`} className="group inline-block">
               <span className="label block">Next project</span>
-              <span className="mt-2 flex items-center gap-3 font-serif text-4xl leading-none transition-colors group-hover:text-ink sm:text-5xl">
+              <span className="mt-2 flex items-center gap-3 font-display text-3xl leading-none transition-colors group-hover:text-ink sm:text-4xl">
                 {next.title}
                 <ArrowRight
                   aria-hidden="true"

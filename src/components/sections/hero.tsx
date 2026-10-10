@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { ArrowDown, ArrowRight } from "lucide-react";
-import { InkUnderline } from "@/components/ink-underline";
+import { ArrowDown, ArrowRight, FileText } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { featuredProjects, site } from "@/data/portfolio";
 import { cn } from "@/lib/utils";
@@ -13,20 +12,17 @@ export function Hero() {
   return (
     <section aria-labelledby="hero-title" className="page-grid">
       <div aria-hidden="true" className="hidden lg:block" />
-      <div className="margin-line min-w-0 pb-20 pt-14 sm:pt-20 lg:pb-28 lg:pt-28">
+      <div className="min-w-0 pb-20 pt-14 sm:pt-20 lg:pb-28 lg:pt-28">
         <p className="label">
           {site.school} <span className="text-ink">/</span> {site.location}
         </p>
 
         <h1
           id="hero-title"
-          className="mt-6 font-serif text-[clamp(3.25rem,12.5vw,9.5rem)] leading-[0.9] tracking-[-0.02em]"
+          className="mt-6 font-display text-[clamp(2.5rem,10.5vw,7.5rem)] leading-[0.95]"
         >
           <span className="block">{givenNames}</span>
-          <span className="relative inline-block pb-[0.08em]">
-            {surname}
-            <InkUnderline className="absolute bottom-[-0.04em] left-0 h-[0.16em] w-full text-ink" />
-          </span>
+          <span className="block text-muted-foreground">{surname}</span>
         </h1>
 
         <div className="mt-12 grid gap-14 lg:mt-16 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-end lg:gap-16">
@@ -34,7 +30,7 @@ export function Hero() {
             <p className="text-xl font-medium leading-snug sm:text-2xl">{site.role}</p>
             <p className="mt-4 text-lg leading-relaxed text-muted-foreground">{site.intro}</p>
 
-            <div className="mt-9 flex flex-wrap gap-3">
+            <div className="mt-9 flex flex-wrap items-center gap-3">
               <Link
                 href="/#projects"
                 className={cn(buttonVariants(), "h-12 rounded-md px-6 text-base")}
@@ -51,6 +47,18 @@ export function Hero() {
               >
                 Contact Me
               </Link>
+              {site.cvUrl ? (
+                <a
+                  href={site.cvUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="link inline-flex h-12 items-center gap-2 px-3"
+                >
+                  <FileText aria-hidden="true" className="size-4" />
+                  View CV
+                  <span className="sr-only">(opens in a new tab)</span>
+                </a>
+              ) : null}
             </div>
           </div>
 

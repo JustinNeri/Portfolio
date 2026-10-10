@@ -50,11 +50,11 @@ function getChannels(): Channel[] {
       external: true,
     });
   }
-  if (site.resumeUrl) {
+  if (site.cvUrl) {
     channels.push({
-      label: "Résumé",
-      value: "View or download",
-      href: site.resumeUrl,
+      label: "CV",
+      value: "View my CV",
+      href: site.cvUrl,
       icon: <FileText aria-hidden="true" className="size-5" />,
       external: true,
     });
@@ -62,14 +62,14 @@ function getChannels(): Channel[] {
   return channels;
 }
 
-export function Contact() {
+export function Contact({ index }: { index: string }) {
   const channels = getChannels();
   if (channels.length === 0) return null;
 
   return (
     <Section
       id="contact"
-      index="04"
+      index={index}
       title="Contact"
       lede={sectionCopy.contact}
     >
@@ -87,7 +87,7 @@ export function Contact() {
                 </span>
                 <span className="min-w-0 flex-1 sm:flex sm:items-baseline sm:gap-6">
                   <span className="label block sm:w-24 sm:shrink-0">{channel.label}</span>
-                  <span className="block break-words font-serif text-2xl leading-tight transition-colors group-hover:text-ink sm:text-3xl">
+                  <span className="block font-display text-lg leading-tight transition-colors [overflow-wrap:anywhere] group-hover:text-ink sm:text-2xl">
                     {channel.value}
                   </span>
                 </span>
