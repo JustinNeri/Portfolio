@@ -295,10 +295,29 @@ export const certifications: Certification[] = [
     issuer: "IBM SkillsBuild",
     url: "https://www.credly.com/badges/3b155683-a2eb-4d87-ad3d-02a3a0f014e7/linked_in_profile",
   },
-  // From your CV, with no link supplied yet.
-  { name: "CCNA: Introduction to Networks", issuer: "Cisco Networking Academy", url: null },
-  // TODO(justin): the CV doesn't name the issuer of this one.
-  { name: "Introduction to Figma Certification", issuer: "", url: null },
+  {
+    name: "Introduction to Figma Basics",
+    issuer: "Simplilearn SkillUp",
+    url: "https://simpli-web.app.link/e/xOdnjJ6Z76b",
+  },
+
+  // The two below have no public credential page, so they show as plain text.
+  // To link one to a PDF: save the file in public/certificates/ and set `url`
+  // to its path, e.g. "/certificates/generative-ai-literacy.pdf".
+  {
+    // Title and issuer as printed on the certificate (No. 26025510, 10 Oct 2026).
+    // TODO(justin): save the PDF as public/certificates/generative-ai-literacy.pdf
+    // and set url to "/certificates/generative-ai-literacy.pdf".
+    name: "SkillQuest – Generative AI Literacy",
+    issuer: "Simplilearn SkillUp",
+    url: null,
+  },
+  {
+    // Course completed; no Credly badge was issued, so this isn't called a badge.
+    name: "CCNA: Introduction to Networks (course completion)",
+    issuer: "Cisco Networking Academy",
+    url: null,
+  },
 ];
 
 // Your CV lists no work experience, so this is empty and the Experience
