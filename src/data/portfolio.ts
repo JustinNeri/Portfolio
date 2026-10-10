@@ -239,16 +239,64 @@ export const education: Education[] = [
   },
 ];
 
-// Names are as written on your CV. Add a credential `url` to make one a link.
+// Names are the titles shown on each credential page. An entry with a `url`
+// is a link on the site; `url: null` renders as plain text.
 // TODO(justin): add dates if you want them shown.
 export const certifications: Certification[] = [
-  { name: "IT Fundamentals (ITF+) Certification", issuer: "CompTIA", url: null },
-  { name: "Responsive Web Design Developer Certification", issuer: "freeCodeCamp", url: null },
-  { name: "Relational Database Certification", issuer: "freeCodeCamp", url: null },
-  { name: "JavaScript Essentials 1", issuer: "Cisco Networking Academy", url: null },
-  { name: "CCNA: Introduction to Networks Badge", issuer: "Cisco Networking Academy", url: null },
-  { name: "Endpoint Security Badge", issuer: "Cisco Networking Academy", url: null },
-  { name: "Cloud Foundations Training Badge", issuer: "AWS Academy", url: null },
+  {
+    name: "CompTIA IT Fundamentals+ (ITF+) Certification",
+    issuer: "CompTIA",
+    url: "https://www.credly.com/badges/136f2975-91ae-4e7f-b335-e2ad50deff54/linked_in_profile",
+  },
+  {
+    name: "AWS Academy Graduate – Cloud Foundations",
+    issuer: "AWS Academy",
+    url: "https://www.credly.com/badges/fca3ea65-69d2-446c-aefa-5038709cf841/linked_in_profile",
+  },
+  {
+    name: "Legacy Responsive Web Design V8",
+    issuer: "freeCodeCamp",
+    url: "https://www.freecodecamp.org/certification/justinneri/responsive-web-design",
+  },
+  {
+    name: "Relational Database V8",
+    issuer: "freeCodeCamp",
+    url: "https://www.freecodecamp.org/certification/justinneri/relational-database-v8",
+  },
+  {
+    name: "JavaScript Essentials 1",
+    issuer: "Cisco Networking Academy",
+    url: "https://www.credly.com/badges/122e6818-e233-4365-8240-b96beba82ac3/linked_in_profile",
+  },
+  {
+    name: "Data Analytics Essentials",
+    issuer: "Cisco Networking Academy",
+    url: "https://www.credly.com/badges/644ae1f9-9d54-4af9-bb43-35160cc78b04/linked_in_profile",
+  },
+  {
+    name: "Endpoint Security",
+    issuer: "Cisco Networking Academy",
+    url: "https://www.credly.com/badges/871d556d-e01e-4e89-83ed-f2fd2d6770ae/linked_in_profile",
+  },
+  {
+    name: "Cyber Threat Management",
+    issuer: "Cisco Networking Academy",
+    url: "https://www.credly.com/badges/9c6ce74a-8eee-443b-bd61-01550cab6278/linked_in_profile",
+  },
+  {
+    name: "AI Fundamentals with IBM SkillsBuild",
+    issuer: "Cisco Networking Academy",
+    url: "https://www.credly.com/badges/0859cf9d-9505-4c99-aaf7-a1bd2d0026d5/linked_in_profile",
+  },
+  {
+    // TODO(justin): confirm the issuer — the credential page didn't state it
+    // in the part I could read; IBM SkillsBuild is my assumption.
+    name: "Artificial Intelligence Fundamentals",
+    issuer: "IBM SkillsBuild",
+    url: "https://www.credly.com/badges/3b155683-a2eb-4d87-ad3d-02a3a0f014e7/linked_in_profile",
+  },
+  // From your CV, with no link supplied yet.
+  { name: "CCNA: Introduction to Networks", issuer: "Cisco Networking Academy", url: null },
   // TODO(justin): the CV doesn't name the issuer of this one.
   { name: "Introduction to Figma Certification", issuer: "", url: null },
 ];
