@@ -172,10 +172,9 @@ export const site: SiteConfig = {
     linkedin: "https://www.linkedin.com/in/justin-neri-pangilinan-564527398/",
   },
 
-  // TODO(justin): this is the PNG image of your CV that you attached. Replace
-  // it with a PDF (e.g. public/cv/justin-neri-pangilinan-cv.pdf) and update
-  // this path — a PDF is sharper, searchable and readable by screen readers.
-  cvUrl: "/cv/justin-neri-pangilinan-cv.png",
+  // Your CV as a PDF, opened by the "View CV" links. To update it, replace the
+  // file in public/cv/ (keep the same name, or change this path).
+  cvUrl: "/cv/justin-neri-pangilinan-cv.pdf",
 
   // The hero photo: your studio portrait with the grey backdrop removed, so it
   // can sit on the purple glow (the untouched original is kept at

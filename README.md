@@ -54,9 +54,9 @@ Rules the site follows:
 
 ### Replacing the CV
 
-The "View CV" links point at `public/cv/justin-neri-pangilinan-cv.png`, the
-image you supplied. To use a PDF instead, put it in `public/cv/` and change
-`site.cvUrl` to its path, for example `"/cv/justin-neri-pangilinan-cv.pdf"`.
+The "View CV" links open `public/cv/justin-neri-pangilinan-cv.pdf`. To update
+your CV, replace that file with a new PDF of the same name. To use a different
+name, change `site.cvUrl` in the data file.
 
 ### Adding a screenshot
 
@@ -66,8 +66,6 @@ image you supplied. To use a PDF instead, put it in `public/cv/` and change
 
 ## What you still need to supply
 
-- [ ] **A PDF of your CV** — the current file is a 588×801 image: small, not
-      searchable and not readable by screen readers.
 - [ ] **In-app screenshots** — the three covers are captures of each app's
       live sign-in page. ConsultTrack and LibSpace have no other screenshots;
       WorkBud's gallery uses the small images from its repository.
