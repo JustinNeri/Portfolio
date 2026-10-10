@@ -77,9 +77,14 @@ export type ProjectImage = {
 };
 
 export type ProjectKind =
-  /** Your own repository, not a fork. Team size / course context may still need confirming. */
+  /** Your own repository, not a fork. Shown without a label. */
   | "original"
+  /** Shown as "Individual project". */
+  | "individual"
+  /** Shown as "Group project". */
   | "group"
+  /** Shown as "Thesis project". */
+  | "thesis"
   | "fork"
   | "tutorial";
 
@@ -103,6 +108,8 @@ export type Project = {
   nextSteps?: string[];
   technologies: string[];
   kind: ProjectKind;
+  /** Short status shown beside the kind, e.g. "Not yet deployed". Optional. */
+  status?: string;
   year: string;
   repoUrl: string | null;
   liveUrl: string | null;
@@ -210,10 +217,8 @@ export const about = {
         "The parts users never see: secure APIs, role-based workflows, and rules enforced in the database, like preventing two groups from booking the same room.",
     },
     {
-      // TODO(justin): you asked for generative AI to be included. This line is
-      // based on your TulongGuro description (a vision-language model drafting
-      // feedback that a teacher reviews). No public code backs it up yet, so
-      // adjust it to describe the generative AI work you have actually done.
+      // Backed by TulongGuro, which uses a Gemini vision-language model with
+      // teacher review (see its entry under projects).
       title: "Generative AI",
       description:
         "Building AI models into applications, such as vision-language models that draft feedback for a person to review and approve.",
@@ -325,7 +330,9 @@ export const experience: Experience[] = [];
 /** Short introductions shown under each section heading. */
 export const sectionCopy = {
   projects: "Three full-stack applications, each built, deployed and documented.",
-  skills: "What I work with. Where a featured project uses it, the project is named.",
+  allProjects:
+    "Everything I've built so far: my own applications, my thesis, and group and individual coursework.",
+  skills: "What I work with. Where one of my projects uses it, the project is named.",
   education: "My degree, and the certifications and badges I've completed.",
   experience: "Where I've worked.",
   contact:
@@ -640,59 +647,178 @@ export const projects: Project[] = [
     },
   },
 
-  // ── Drafts ─────────────────────────────────────────────────────────────
-  // These two came from your brief but have no usable public repository yet
-  // (TulongGuro: none found; Carepanion: the public repos are empty). They are
-  // unpublished, so nothing renders. To publish one: fill in the TODOs, set
-  // `published: true`, and set `featured: true` if it should replace one of
-  // the three above on the home page.
+  // ── More projects ──────────────────────────────────────────────────────
+  // Not on the home page (featured: false); listed on /projects.
 
   {
     slug: "tulongguro",
     title: "TulongGuro",
-    tagline: "VLM-integrated LMS gradebook",
+    tagline: "AI-Assisted Grading and Classroom Management System",
     description:
-      "A VLM-integrated LMS gradebook designed to support automated feedback on Grade 6 English assessments, with teacher review and final approval.",
-    problem: "TODO(justin): describe the problem this addresses.",
-    features: [], // TODO(justin)
-    contribution: null, // TODO(justin)
-    technologies: [], // TODO(justin)
-    kind: "original", // TODO(justin): confirm — solo, group or thesis project?
-    year: "", // TODO(justin)
-    repoUrl: null, // TODO(justin)
-    liveUrl: null, // TODO(justin)
-    cover: null, // TODO(justin): add public/projects/tulongguro/cover.webp
+      "A thesis project for the Computer Science program at Holy Angel University. TulongGuro is a learning management system for teachers in which a vision-language model reads student work, including photos of handwritten essays, against the teacher's rubric and drafts a score and feedback. The teacher reviews, edits and approves every result before a student sees it.",
+    problem:
+      "Large classes and paper-based workloads make timely, personal feedback hard for Philippine public school teachers, and most learning management systems only record grades. TulongGuro drafts rubric-based feedback on Grade 6 English work so the teacher can spend their time reviewing it instead of writing it from scratch.",
+    features: [
+      "AI-assisted checking: the model reads handwritten or typed submissions and drafts rubric-aligned scores, strengths, areas for growth and next steps.",
+      "Human-in-the-loop review: teachers validate and can edit every AI draft, and releasing grades to students is a separate step.",
+      "Separate Teacher, Student and Admin interfaces; school admins manage sections, course shells and student rosters.",
+      "Progress dashboards that track mastery of curriculum competencies across activities.",
+      "Badges that students earn from performance and milestones.",
+      "Delivered as a progressive web app, so it runs on desktop and phones without an app store.",
+    ],
+    decisions: [
+      {
+        title: "The AI drafts; the teacher decides",
+        detail:
+          "Validation and release are separate acts, so a grade reaches a learner only after the teacher has reviewed the set and published it. The thesis abstract reports that raw AI drafts matched teacher-set performance bands in only about a quarter of cases, which is why the system is positioned as decision support and not as an automatic grader.",
+      },
+      {
+        title: "Images are prepared on the server before the model sees them",
+        detail:
+          "Photographed or uploaded work is optimised server-side, then read and scored against the rubric in a single model call.",
+      },
+      {
+        title: "A fallback model keeps checking available",
+        detail:
+          "Checking rotates between a primary and a fallback Gemini Flash model, so a class is read to one standard whichever one answers.",
+      },
+    ],
+
+    // TODO(justin): this is a group thesis (four contributors on GitHub; you
+    // have the second-most commits). Say which parts were yours. Until then
+    // the "My contribution" block stays hidden.
+    contribution: null,
+
+    technologies: [
+      "React 19",
+      "Vite",
+      "Tailwind CSS 4",
+      "React Router",
+      "Node.js",
+      "Express 5",
+      "Prisma",
+      "PostgreSQL (Supabase)",
+      "Supabase Storage",
+      "Google Gemini (Generative AI SDK)",
+      "PWA",
+      "Vercel & Render",
+    ],
+    kind: "thesis",
+    year: "2026",
+    repoUrl: "https://github.com/Damudachi/TulongGuro",
+    liveUrl: "https://tulong-guro.vercel.app",
+    cover: {
+      src: "/projects/tulongguro/cover.webp",
+      alt: "TulongGuro landing page with the headline “Grading that gives you your evenings back.”",
+      width: 2400,
+      height: 1500,
+    },
+    // TODO(justin): add in-app screenshots (grading review, dashboards).
     gallery: [],
     featured: false,
-    published: false,
+    published: true,
     source: {
-      repository: null,
-      files: [],
-      notes: "Starter description from your brief. No public repository found on 2026-10-10.",
+      repository: "https://github.com/Damudachi/TulongGuro",
+      files: [
+        "README.md",
+        "docs/ABSTRACT-250.txt",
+        "package.json",
+        "server/package.json",
+        "repository description",
+      ],
+      notes:
+        "Owned by Damudachi, not you; four GitHub contributors (Damudachi 189 commits, JustinNeri 141, neriahv 19, ShawnUriel 7 on 2026-10-11). The repository description calls it a thesis project for the CS program at HAU. Live URL from the repository responded 200; the cover is a capture of that landing page. The abstract also reports evaluation scores (ISO/IEC 25010, SUS, grading time) that are NOT shown on the site — add them yourself if your panel has approved the final figures.",
     },
   },
+
   {
     slug: "carepanion",
     title: "Carepanion",
-    tagline: "Voice-driven reminder app",
-    description: "A voice-driven reminder app for wellness and daily care.",
-    problem: "TODO(justin): describe the problem this addresses.",
-    features: [], // TODO(justin)
-    contribution: null, // TODO(justin)
-    technologies: [], // TODO(justin)
-    kind: "original", // TODO(justin): confirm
-    year: "", // TODO(justin)
-    repoUrl: null, // TODO(justin)
-    liveUrl: null, // TODO(justin)
-    cover: null, // TODO(justin): add public/projects/carepanion/cover.webp
+    tagline: "Voice-Driven Reminder App for Wellness and Daily Care",
+    description:
+      "A group project: a Flutter mobile app for wellness and daily-care reminders. One person sets tasks and reminders for someone they look after, and the app reads reminders aloud and raises alarms on the other person's phone. It has not been deployed yet.",
+    problem:
+      "People who need help keeping up with daily care, such as medication or routines, can miss reminders that are only text on a screen. Carepanion pairs them with a companion or guardian who manages their tasks, and speaks the reminders aloud.",
+    features: [
+      "Two roles with their own screens: an assisted user, and a regular user who acts as their companion or guardian.",
+      "Tasks and reminders with daily and calendar views; companions can add and edit tasks.",
+      "Spoken reminders using text-to-speech, with local notifications.",
+      "Full-screen alarms on Android that are rescheduled after the phone restarts.",
+      "An emergency screen that alerts guardians.",
+      "Sign-up by email, phone or Google, with data stored in Supabase.",
+    ],
+
+    // TODO(justin): this is a group project (five contributors on GitHub; you
+    // have the most commits). Say which parts were yours. Until then the
+    // "My contribution" block stays hidden.
+    contribution: null,
+
+    technologies: [
+      "Flutter",
+      "Dart",
+      "Supabase",
+      "flutter_tts (text-to-speech)",
+      "Local notifications",
+      "Kotlin (Android alarms)",
+    ],
+    kind: "group",
+    status: "Not yet deployed",
+    year: "2025",
+    repoUrl: "https://github.com/adriann47/Carepanion",
+    liveUrl: null,
+    // TODO(justin): no screenshots exist in the repository. Add phone
+    // screenshots to public/projects/carepanion/ and set a cover.
+    cover: null,
     gallery: [],
     featured: false,
-    published: false,
+    published: true,
     source: {
-      repository: null,
-      files: [],
+      repository: "https://github.com/adriann47/Carepanion",
+      files: ["pubspec.yaml", "lib/ (screen and service file names)", "android/app/src/main/kotlin/"],
       notes:
-        "Starter description from your brief. The public Carepanion repositories (UPDATED_CAREPANION, CarePanionTest and similar) contained no code on 2026-10-10.",
+        "Owned by adriann47, not you; five GitHub contributors (JustinNeri 54 commits, neriahv 47, ShawnUriel 24, EnzoProg-ctrl 4, adriann47 2 on 2026-10-11). The README is the default Flutter template, so the features above are inferred from dependency and source file names, not from documentation or a running app — check them. You told me it is a group project and not yet deployed.",
+    },
+  },
+
+  {
+    slug: "yumiscipe",
+    title: "Yumiscipe",
+    tagline: "Recipe Website",
+    description:
+      "An individual project: a multi-page recipe website built with plain HTML and CSS. It presents Filipino and American dishes, a best-recipe page, a list of dishes and an about page, with a layout that adapts to phones.",
+    problem:
+      "An early front-end project for practising page layout, navigation between pages and responsive design without a framework.",
+    features: [
+      "Home page with a banner, navigation and a dish search box.",
+      "Separate pages for Filipino and American cuisine, a best recipe, and a list of dishes.",
+      "About and login pages.",
+      "Responsive layout with a collapsible menu on small screens.",
+    ],
+
+    // CONFLICT: you told me this is an individual project, but the live home
+    // page says "BY JNP/KCP", which reads like two authors. If someone else
+    // worked on it, change `kind` to "group" and reword this.
+    contribution: "I built this site as an individual project.",
+
+    technologies: ["HTML", "CSS", "JavaScript", "Vercel"],
+    kind: "individual",
+    year: "2024",
+    repoUrl: "https://github.com/JustinNeri/Yumiscipe",
+    liveUrl: "https://yumiscipe.vercel.app",
+    cover: {
+      src: "/projects/yumiscipe/cover.webp",
+      alt: "Yumiscipe home page with a pink header, navigation, and a banner reading “Ready to explore new dishes with Yumiscipe!”",
+      width: 2400,
+      height: 1500,
+    },
+    gallery: [],
+    featured: false,
+    published: true,
+    source: {
+      repository: "https://github.com/JustinNeri/Yumiscipe",
+      files: ["index.html", "about1.html", "login.html", "file list"],
+      notes:
+        "Your repository, not a fork; you are the only GitHub contributor. No README. Live URL (supplied by you) responded 200 on 2026-10-11; the cover is a capture of that home page.",
     },
   },
 ];
@@ -713,9 +839,8 @@ export const skillGroups: SkillGroup[] = [
       { name: "Vite", usedIn: ["workbud", "consulttrack", "libspace"], confirmed: true },
       {
         name: "Flutter & Dart",
-        usedIn: [],
+        usedIn: ["carepanion"],
         confirmed: true,
-        note: "On your CV. Seen in FINAL_CLOUDCOM and CLOUDCOM_pokemon, which aren't featured.",
       },
       {
         name: "TypeScript",
@@ -751,9 +876,8 @@ export const skillGroups: SkillGroup[] = [
       { name: "Rate limiting", usedIn: ["workbud", "consulttrack"], confirmed: true },
       {
         name: "Generative AI integration",
-        usedIn: [],
+        usedIn: ["tulongguro"],
         confirmed: true,
-        note: "You told me you do generative AI (TulongGuro integrates a vision-language model). Not verifiable from a public repo yet.",
       },
       {
         name: "Python",
@@ -793,6 +917,24 @@ export const skillGroups: SkillGroup[] = [
 
 export const publishedProjects = projects.filter((p) => p.published);
 export const featuredProjects = publishedProjects.filter((p) => p.featured).slice(0, 3);
+
+/** "Thesis project", "Group project"… or null when there is nothing to say. */
+export function projectKindLabel(kind: ProjectKind): string | null {
+  switch (kind) {
+    case "individual":
+      return "Individual project";
+    case "group":
+      return "Group project";
+    case "thesis":
+      return "Thesis project";
+    case "fork":
+      return "Fork";
+    case "tutorial":
+      return "Tutorial project";
+    default:
+      return null;
+  }
+}
 
 export function getProject(slug: string): Project | undefined {
   return publishedProjects.find((p) => p.slug === slug);

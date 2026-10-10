@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { BrowserFrame, hostOf } from "@/components/browser-frame";
+import { projectMeta } from "@/components/project-card";
 import { ProjectLinks } from "@/components/project-links";
 import { TechList } from "@/components/tech-list";
 import { getProject, publishedProjects, site } from "@/data/portfolio";
@@ -80,15 +81,13 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
       </div>
 
       <div className="min-w-0 pb-20 pt-10 lg:pb-28 lg:pt-16">
-        <Link href="/#projects" className="link inline-flex items-center gap-1.5 py-1 text-sm">
+        <Link href="/projects" className="link inline-flex items-center gap-1.5 py-1 text-sm">
           <ArrowLeft aria-hidden="true" className="size-4" />
           All projects
         </Link>
 
         <header className="mt-10 max-w-3xl">
-          <p className="label">
-            Case study{project.year ? <> — {project.year}</> : null}
-          </p>
+          <p className="label">{["Case study", ...projectMeta(project)].join(" · ")}</p>
           <h1
             id="project-title"
             className="mt-4 font-display text-[clamp(2.25rem,9vw,5.5rem)] leading-[0.95]"

@@ -42,6 +42,9 @@ Rules the site follows:
 - **`null` or an empty list hides things.** A missing link, an empty
   `experience` list or a certification without a `url` is simply not rendered —
   there are no placeholder links.
+- **All projects live at `/projects`.** Set a project's `kind` to
+  `"individual"`, `"group"` or `"thesis"` to credit it that way, and use
+  `status` for a note such as "Not yet deployed".
 - **`published: false`** keeps a project off the site entirely. **`featured: true`**
   puts it on the home page; only the first three featured projects are shown.
 - **`confirmed: false`** keeps a skill hidden.

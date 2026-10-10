@@ -1,10 +1,16 @@
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { ProjectFeature } from "@/components/project-feature";
 import { Reveal } from "@/components/reveal";
 import { Section } from "@/components/section";
-import { featuredProjects, sectionCopy } from "@/data/portfolio";
+import { buttonVariants } from "@/components/ui/button";
+import { featuredProjects, publishedProjects, sectionCopy } from "@/data/portfolio";
+import { cn } from "@/lib/utils";
 
 export function Projects({ index }: { index: string }) {
   if (featuredProjects.length === 0) return null;
+
+  const hasMore = publishedProjects.length > featuredProjects.length;
 
   return (
     <Section
@@ -20,6 +26,27 @@ export function Projects({ index }: { index: string }) {
           </Reveal>
         ))}
       </div>
+
+      {hasMore ? (
+        <Reveal className="mt-16 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-rule pt-10 lg:mt-24">
+          <Link
+            href="/projects"
+            className={cn(
+              buttonVariants({ variant: "outline" }),
+              "group h-12 rounded-md bg-transparent px-6 text-base",
+            )}
+          >
+            View all projects
+            <ArrowRight
+              aria-hidden="true"
+              className="size-4 transition-transform motion-safe:group-hover:translate-x-1"
+            />
+          </Link>
+          <p className="text-sm text-muted-foreground">
+            {publishedProjects.length} in total, including my thesis and group work.
+          </p>
+        </Reveal>
+      ) : null}
     </Section>
   );
 }
