@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { MobileNav } from "@/components/mobile-nav";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { navLinks, site } from "@/data/portfolio";
 
 export type NavItem = { label: string; href: string; external?: boolean };
@@ -32,33 +33,36 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <nav aria-label="Main" className="hidden md:block">
-          <ul className="flex items-center gap-8 text-sm">
-            {items.map((item) => (
-              <li key={item.href}>
-                {item.external ? (
-                  <a
-                    href={item.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="link py-2 text-foreground"
-                  >
-                    {item.label}
-                  </a>
-                ) : (
-                  <Link
-                    href={item.href}
-                    className="py-2 text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    {item.label}
-                  </Link>
-                )}
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <div className="flex items-center gap-1 md:gap-5">
+          <nav aria-label="Main" className="hidden md:block">
+            <ul className="flex items-center gap-8 text-sm">
+              {items.map((item) => (
+                <li key={item.href}>
+                  {item.external ? (
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="link py-2 text-foreground"
+                    >
+                      {item.label}
+                    </a>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className="py-2 text-muted-foreground transition-colors hover:text-foreground"
+                    >
+                      {item.label}
+                    </Link>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-        <MobileNav items={items} />
+          <ThemeToggle />
+          <MobileNav items={items} />
+        </div>
       </div>
     </header>
   );

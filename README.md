@@ -124,9 +124,10 @@ public/
 
 ## Design notes
 
-- **Palette** — charcoal background, off-white text and one quiet purple
-  accent, defined as CSS variables at the top of `globals.css`. The site has a
-  single dark theme.
+- **Palette** — one quiet purple accent on charcoal (dark mode) or off-white
+  (light mode), defined as CSS variables at the top of `globals.css`.
+- **Dark and light mode** — the sun/moon button in the header switches theme
+  and remembers the choice. Dark is the default.
 - **Type** — Geist for headings and text, Geist Mono for small labels.
 - **Motion** — sections fade up once as they scroll in. This is disabled under
   `prefers-reduced-motion`, and content still appears if scripts fail to load.

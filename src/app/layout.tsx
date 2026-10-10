@@ -47,17 +47,26 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#151518",
-  colorScheme: "dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f6f5f1" },
+    { media: "(prefers-color-scheme: dark)", color: "#151518" },
+  ],
+  colorScheme: "dark light",
 };
+
+// Runs before the page paints so a saved light-mode choice never flashes dark.
+// Dark is the default; the key must match components/theme-toggle.tsx.
+const themeScript = `try{if(localStorage.getItem("theme")==="light")document.documentElement.classList.remove("dark")}catch(e){}`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${anton.variable} antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${anton.variable} dark antialiased`}
+      suppressHydrationWarning
     >
       <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <noscript>
           <style>{".reveal{opacity:1!important;transform:none!important}"}</style>
         </noscript>

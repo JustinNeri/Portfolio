@@ -185,19 +185,46 @@ export const site: SiteConfig = {
 };
 
 // ── About ────────────────────────────────────────────────────────────────
-// Based on the Professional Summary in your CV.
+// Who you are, what you focus on, and how you work. Based on your CV summary
+// and what you told me.
 
 export const about = {
+  /** The large opening statement. */
+  lead: "I'm Justin, a fourth-year Computer Science student at Holy Angel University focused on full-stack web development, software engineering and generative AI.",
+
   paragraphs: [
-    "I'm Justin, a fourth-year Computer Science student at Holy Angel University, working toward a career as a software engineer.",
     "I've built and deployed three full-stack applications: an OJT hours and expense tracker, a library discussion-room reservation system, and a capstone consultation system.",
-    "I work mostly with React, Node.js/Express and PostgreSQL, and I care about the parts users never see — secure APIs, role-based workflows, and rules enforced in the database, like preventing two groups from booking the same room.",
+    "What draws me to software engineering is the problem-solving — taking something tedious or easy to get wrong and working out a clear, dependable way to handle it. I'm working toward a career as a software engineer.",
   ],
+
+  /** The three things you do, shown as a row under the introduction. */
+  focusAreas: [
+    {
+      title: "Full-stack web development",
+      description:
+        "React front ends, Node.js and Express APIs, and PostgreSQL databases, taken from schema design through to a deployed app.",
+    },
+    {
+      title: "Software engineering",
+      description:
+        "The parts users never see: secure APIs, role-based workflows, and rules enforced in the database, like preventing two groups from booking the same room.",
+    },
+    {
+      // TODO(justin): you asked for generative AI to be included. This line is
+      // based on your TulongGuro description (a vision-language model drafting
+      // feedback that a teacher reviews). No public code backs it up yet, so
+      // adjust it to describe the generative AI work you have actually done.
+      title: "Generative AI",
+      description:
+        "Building AI models into applications, such as vision-language models that draft feedback for a person to review and approve.",
+    },
+  ],
+
   facts: [
     { label: "Degree", value: "BS Computer Science" },
     { label: "University", value: "Holy Angel University" },
+    { label: "Year", value: "Fourth year" },
     { label: "Based in", value: "Pampanga, Philippines" },
-    { label: "Focus", value: "Full-stack web development" },
   ],
 };
 
@@ -658,6 +685,12 @@ export const skillGroups: SkillGroup[] = [
         confirmed: true,
       },
       { name: "Rate limiting", usedIn: ["workbud", "consulttrack"], confirmed: true },
+      {
+        name: "Generative AI integration",
+        usedIn: [],
+        confirmed: true,
+        note: "You told me you do generative AI (TulongGuro integrates a vision-language model). Not verifiable from a public repo yet.",
+      },
       {
         name: "Python",
         usedIn: [],

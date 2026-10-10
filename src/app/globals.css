@@ -2,8 +2,8 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-/* The site has a single dark theme, so `dark:` styles always apply. */
-@custom-variant dark (&:where(html, html *));
+/* Dark mode is the `dark` class on <html>, set by components/theme-toggle.tsx. */
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
   --color-background: var(--background);
@@ -36,11 +36,40 @@
 }
 
 /*
- * Palette: charcoal, off-white, and one quiet accent — purple.
+ * Palette: one quiet accent — purple — on off-white (light) or charcoal (dark).
  * `--ink` is the accent, used sparingly for labels, hovers and focus.
- * Buttons are off-white on charcoal so the purple stays subtle.
+ * Buttons use the text colour so the purple stays subtle.
  */
 :root {
+  color-scheme: light;
+  --background: #f6f5f1;
+  --foreground: #17171a;
+  --card: #ffffff;
+  --card-foreground: #17171a;
+  --popover: #ffffff;
+  --popover-foreground: #17171a;
+  --ink: #5a3fd6;
+  --primary: #17171a;
+  --primary-foreground: #f6f5f1;
+  --secondary: #eae8e2;
+  --secondary-foreground: #17171a;
+  --muted: #eae8e2;
+  --muted-foreground: #5d5c66;
+  --accent: #eae8e2;
+  --accent-foreground: #17171a;
+  --destructive: #c2410c;
+  --border: #d6d3cb;
+  --rule: #e3e0d9;
+  --input: #d6d3cb;
+  --ring: #5a3fd6;
+  --radius: 0.5rem;
+  /* Hero: glow behind the portrait, and the gradient on the surname. */
+  --hero-glow: rgb(124 96 240 / 0.42);
+  --name-from: #8468f5;
+  --name-to: #4a2fcf;
+}
+
+.dark {
   color-scheme: dark;
   --background: #151518;
   --foreground: #ebe9e4;
@@ -62,7 +91,9 @@
   --rule: #232328;
   --input: #2e2e35;
   --ring: #b3a4f5;
-  --radius: 0.5rem;
+  --hero-glow: rgb(112 84 232 / 0.58);
+  --name-from: #b7a6ff;
+  --name-to: #6648ea;
 }
 
 @layer base {
