@@ -39,6 +39,8 @@ export type SiteConfig = {
   };
   /** Path under /public (e.g. "/cv/my-cv.pdf") or a full URL. */
   cvUrl: string | null;
+  /** Hero photo. Set to null to show the hero without a picture. */
+  portrait: ProjectImage | null;
 };
 
 export type Education = {
@@ -167,6 +169,19 @@ export const site: SiteConfig = {
   // it with a PDF (e.g. public/cv/justin-neri-pangilinan-cv.pdf) and update
   // this path — a PDF is sharper, searchable and readable by screen readers.
   cvUrl: "/cv/justin-neri-pangilinan-cv.png",
+
+  // The hero photo: your studio portrait with the grey backdrop removed, so it
+  // can sit on the purple glow (the untouched original is kept at
+  // public/profile/portrait-original.png).
+  // The source photo was only 414px wide, so it was enlarged 4x with an AI
+  // super-resolution model. That sharpens edges but also invents fine detail.
+  // TODO(justin): for a true-to-life result, supply a larger original (1500px+).
+  portrait: {
+    src: "/profile/portrait-cutout-v3.webp",
+    alt: "Portrait of Justin Neri Pangilinan",
+    width: 1624,
+    height: 1620,
+  },
 };
 
 // ── About ────────────────────────────────────────────────────────────────

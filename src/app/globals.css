@@ -117,6 +117,13 @@
   }
 }
 
+/* Condensed poster face, used for the name in the hero. */
+@utility font-poster {
+  font-family: var(--font-anton), Impact, "Arial Narrow", sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.005em;
+}
+
 /* Scroll reveal: only hidden when motion is welcome; see components/reveal.tsx. */
 @media (prefers-reduced-motion: no-preference) {
   .reveal {

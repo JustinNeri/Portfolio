@@ -9,6 +9,10 @@ import { ProjectLinks } from "@/components/project-links";
 import { TechList } from "@/components/tech-list";
 import { getProject, publishedProjects, site } from "@/data/portfolio";
 
+// Every case study is prerendered from the data file, so there is no instant
+// shell to stream into; unknown slugs render the not-found page.
+export const instant = false;
+
 export function generateStaticParams() {
   return publishedProjects.map((project) => ({ slug: project.slug }));
 }
