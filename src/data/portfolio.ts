@@ -301,16 +301,13 @@ export const certifications: Certification[] = [
     url: "https://simpli-web.app.link/e/xOdnjJ6Z76b",
   },
 
-  // The two below have no public credential page, so they show as plain text.
-  // To link one to a PDF: save the file in public/certificates/ and set `url`
+  // These have no public credential page. To link one to a PDF: save the file in public/certificates/ and set `url`
   // to its path, e.g. "/certificates/generative-ai-literacy.pdf".
   {
     // Title and issuer as printed on the certificate (No. 26025510, 10 Oct 2026).
-    // TODO(justin): save the PDF as public/certificates/generative-ai-literacy.pdf
-    // and set url to "/certificates/generative-ai-literacy.pdf".
     name: "SkillQuest – Generative AI Literacy",
     issuer: "Simplilearn SkillUp",
-    url: null,
+    url: "/certificates/generative-ai-literacy.pdf",
   },
   {
     // Course completed; no Credly badge was issued, so this isn't called a badge.
