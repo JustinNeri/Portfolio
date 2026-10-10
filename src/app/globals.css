@@ -1,0 +1,182 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/* The theme follows the visitor's system setting. */
+@custom-variant dark (@media (prefers-color-scheme: dark));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-rule: var(--rule);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
+  --font-heading: var(--font-serif);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+}
+
+/*
+ * Palette: paper, ink, and one accent — ledger red.
+ * `--ink` is the accent used for text and lines; `--primary` is the same
+ * colour used as a fill (buttons).
+ */
+:root {
+  --background: #f5f2ea;
+  --foreground: #1c1a17;
+  --card: #fbf9f4;
+  --card-foreground: #1c1a17;
+  --popover: #fbf9f4;
+  --popover-foreground: #1c1a17;
+  --ink: #b3301b;
+  --primary: #b3301b;
+  --primary-foreground: #fffaf3;
+  --secondary: #ebe6da;
+  --secondary-foreground: #1c1a17;
+  --muted: #ebe6da;
+  --muted-foreground: #615b51;
+  --accent: #ebe6da;
+  --accent-foreground: #1c1a17;
+  --destructive: #b3301b;
+  --border: #d8d1c1;
+  --rule: #e3ddd0;
+  --input: #d8d1c1;
+  --ring: #b3301b;
+  --radius: 0.5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #151412;
+    --foreground: #ece7dc;
+    --card: #1c1b18;
+    --card-foreground: #ece7dc;
+    --popover: #1c1b18;
+    --popover-foreground: #ece7dc;
+    --ink: #f27458;
+    --primary: #f27458;
+    --primary-foreground: #1a0d09;
+    --secondary: #24221e;
+    --secondary-foreground: #ece7dc;
+    --muted: #24221e;
+    --muted-foreground: #a8a092;
+    --accent: #24221e;
+    --accent-foreground: #ece7dc;
+    --destructive: #f27458;
+    --border: #35322c;
+    --rule: #262420;
+    --input: #35322c;
+    --ring: #f27458;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    @apply font-sans;
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "ss01", "cv11";
+  }
+  ::selection {
+    background: var(--ink);
+    color: var(--primary-foreground);
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  /* Small uppercase mono label used for eyebrows and metadata. */
+  .label {
+    @apply font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-muted-foreground;
+  }
+
+  /* Text link with an underline that thickens into the accent on hover. */
+  .link {
+    @apply underline decoration-border decoration-1 underline-offset-4 transition-colors hover:text-ink hover:decoration-ink;
+  }
+}
+
+@layer components {
+  /* Shared page frame: a narrow margin column, then the content column. */
+  .page-grid {
+    @apply mx-auto grid w-full max-w-6xl grid-cols-1 px-5 sm:px-8 lg:grid-cols-[5.5rem_minmax(0,1fr)];
+  }
+
+  /* The red margin line of a ledger page. Consecutive sections join into one line. */
+  .margin-line {
+    @apply lg:border-l lg:border-ink/40 lg:pl-12;
+  }
+}
+
+/* Scroll reveal: only hidden when motion is welcome; see components/reveal.tsx. */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.6s cubic-bezier(0.21, 0.47, 0.32, 0.98),
+      transform 0.6s cubic-bezier(0.21, 0.47, 0.32, 0.98);
+  }
+  .reveal[data-in="true"] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Hero underline: the stroke draws itself once. */
+.ink-stroke {
+  stroke-dasharray: 1;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ink-stroke {
+    animation: ink-draw 0.9s 0.45s cubic-bezier(0.65, 0, 0.35, 1) both;
+  }
+}
+@keyframes ink-draw {
+  from {
+    stroke-dashoffset: 1;
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
