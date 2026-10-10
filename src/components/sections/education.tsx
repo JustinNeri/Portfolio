@@ -39,30 +39,49 @@ export function EducationSection({ index }: { index: string }) {
           <div>
             <h3 className="label pb-3 text-foreground">Certifications &amp; badges</h3>
             <ul className="border-t border-border">
-              {certifications.map((cert) => (
-                <li
-                  key={cert.name}
-                  className="flex flex-col gap-0.5 border-b border-rule py-3 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
-                >
-                  {cert.url ? (
-                    <a
-                      href={cert.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="link inline-flex items-center gap-1.5 font-medium"
-                    >
-                      {cert.name}
-                      <ArrowUpRight aria-hidden="true" className="size-4 shrink-0" />
-                      <span className="sr-only">(opens in a new tab)</span>
-                    </a>
-                  ) : (
-                    <span className="font-medium">{cert.name}</span>
-                  )}
-                  {cert.issuer ? (
-                    <span className="shrink-0 text-sm text-muted-foreground">{cert.issuer}</span>
-                  ) : null}
-                </li>
-              ))}
+              {certifications.map((cert, i) => {
+                const row = (
+                  <>
+                    <span aria-hidden="true" className="label w-6 shrink-0 pt-1 transition-colors group-hover:text-ink">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block font-medium transition-colors group-hover:text-ink">
+                        {cert.name}
+                      </span>
+                      {cert.issuer ? (
+                        <span className="mt-0.5 block text-sm text-muted-foreground">
+                          {cert.issuer}
+                        </span>
+                      ) : null}
+                    </span>
+                  </>
+                );
+
+                return (
+                  <li key={cert.name} className="border-b border-rule">
+                    {cert.url ? (
+                      <a
+                        href={cert.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="group -mx-3 flex items-start gap-4 rounded-md px-3 py-3.5 transition-[background-color,padding] duration-200 hover:bg-muted/70 motion-safe:hover:pl-5"
+                      >
+                        {row}
+                        <span className="sr-only">(opens the credential in a new tab)</span>
+                        <span
+                          aria-hidden="true"
+                          className="mt-0.5 grid size-8 shrink-0 place-items-center rounded-full border border-border text-muted-foreground transition-all duration-200 group-hover:border-ink group-hover:bg-ink group-hover:text-background motion-safe:group-hover:rotate-45"
+                        >
+                          <ArrowUpRight className="size-4" />
+                        </span>
+                      </a>
+                    ) : (
+                      <div className="flex items-start gap-4 py-3.5">{row}</div>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </div>
         ) : null}
