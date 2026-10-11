@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { Anton, Geist, Geist_Mono } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
@@ -83,6 +84,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <SiteFooter />
+        {/* Visit counts, shown in the Vercel dashboard. Only reports from a Vercel deployment. */}
+        <Analytics />
       </body>
     </html>
   );
