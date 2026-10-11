@@ -196,7 +196,7 @@ export const site: SiteConfig = {
 
 export const about = {
   /** The large opening statement. */
-  lead: "I'm Justin, a fourth-year Computer Science student at Holy Angel University focused on full-stack web development, software engineering and generative AI.",
+  lead: "I'm Justin, a fourth-year Computer Science student at Holy Angel University and a full-stack engineer and developer, focused on software engineering and generative AI.",
 
   paragraphs: [
     "I've built and deployed full-stack applications, including an OJT hours and expense tracker and a library discussion-room reservation system.",
@@ -220,7 +220,7 @@ export const about = {
       // teacher review (see its entry under projects).
       title: "Generative AI",
       description:
-        "Building AI models into applications, such as vision-language models that draft feedback for a person to review and approve.",
+        "Building AI models into applications, such as Gemini vision-language models that draft feedback for a person to review and approve, and developing with AI coding tools such as Codex, Claude and Antigravity.",
     },
   ],
 
