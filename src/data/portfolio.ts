@@ -199,7 +199,7 @@ export const about = {
   lead: "I'm Justin, a fourth-year Computer Science student at Holy Angel University focused on full-stack web development, software engineering and generative AI.",
 
   paragraphs: [
-    "I've built and deployed three full-stack applications: an OJT hours and expense tracker, a library discussion-room reservation system, and a capstone consultation system.",
+    "I've built and deployed full-stack applications, including an OJT hours and expense tracker and a library discussion-room reservation system.",
     "What draws me to software engineering is the problem-solving — taking something tedious or easy to get wrong and working out a clear, dependable way to handle it. I'm working toward a career as a software engineer.",
   ],
 
