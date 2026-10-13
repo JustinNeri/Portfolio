@@ -1,4 +1,5 @@
 import type { ComponentType } from "react";
+import { PageTransition } from "@/components/page-transition";
 import { About } from "@/components/sections/about";
 import { Contact } from "@/components/sections/contact";
 import { EducationSection } from "@/components/sections/education";
@@ -22,11 +23,13 @@ export default function HomePage() {
   ];
 
   return (
-    <>
-      <Hero />
-      {sections.map((SectionComponent, i) => (
-        <SectionComponent key={i} index={String(i + 1).padStart(2, "0")} />
-      ))}
-    </>
+    <PageTransition>
+      <div>
+        <Hero />
+        {sections.map((SectionComponent, i) => (
+          <SectionComponent key={i} index={String(i + 1).padStart(2, "0")} />
+        ))}
+      </div>
+    </PageTransition>
   );
 }

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { BrowserFrame, hostOf } from "@/components/browser-frame";
+import { BrowserFrame, hostOf, shotTransitionName } from "@/components/browser-frame";
 import { ProjectLinks } from "@/components/project-links";
 import { TechList } from "@/components/tech-list";
 import { projectKindLabel, type Project } from "@/data/portfolio";
@@ -25,6 +25,7 @@ export function ProjectCard({ project }: { project: Project }) {
             image={project.cover}
             host={hostOf(project.liveUrl)}
             sizes="(min-width: 1152px) 480px, (min-width: 768px) 50vw, 100vw"
+            transitionName={shotTransitionName(project.slug)}
           />
         ) : (
           // No screenshot yet: a plain title panel in the same shape as the others.

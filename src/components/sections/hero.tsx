@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowDown, ArrowRight, FileText } from "lucide-react";
+import { Reveal } from "@/components/reveal";
 import { buttonVariants } from "@/components/ui/button";
 import { featuredProjects, site } from "@/data/portfolio";
 import { cn } from "@/lib/utils";
@@ -20,25 +21,25 @@ function HeroPoster() {
       {/* Purple glow behind the portrait: centred on phones, right on desktop. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-[radial-gradient(75%_45%_at_50%_24%,var(--hero-glow),transparent_72%)] lg:bg-[radial-gradient(40%_76%_at_84%_50%,var(--hero-glow),transparent_72%)]"
+        className="hero-glow absolute inset-0 -z-10 bg-[radial-gradient(75%_45%_at_50%_24%,var(--hero-glow),transparent_72%)] lg:bg-[radial-gradient(40%_76%_at_84%_50%,var(--hero-glow),transparent_72%)]"
       />
 
       <div className="mx-auto grid w-full max-w-6xl items-end 2xl:max-w-[100rem] 2xl:px-14 gap-x-8 px-5 sm:px-8 lg:min-h-[min(90svh,60rem)] lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
         <div className="relative z-10 order-2 pb-14 pt-8 lg:order-1 lg:self-center lg:py-20">
-          <p className="label lg:text-xs 2xl:text-sm">
+          <p className="hero-in label lg:text-xs 2xl:text-sm">
             {site.school} <span className="text-ink">/</span> {site.location}
           </p>
 
           <h1 id="hero-title" className="mt-5 whitespace-nowrap font-poster uppercase lg:mt-6">
-            <span className="block text-[min(10.5vw,4.25rem)] leading-none xl:text-[5rem] 2xl:text-[6rem]">{givenNames}</span>
-            <span className="mt-1 block w-max bg-gradient-to-b from-(--name-from) to-(--name-to) bg-clip-text text-[min(19vw,7.5rem)] leading-[0.95] text-transparent xl:text-[8.75rem] 2xl:text-[9.75rem]">
+            <span className="hero-in block [--i:1] text-[min(10.5vw,4.25rem)] leading-none xl:text-[5rem] 2xl:text-[6rem]">{givenNames}</span>
+            <span className="hero-in mt-1 block w-max [--i:2] bg-gradient-to-b from-(--name-from) to-(--name-to) bg-clip-text text-[min(19vw,7.5rem)] leading-[0.95] text-transparent xl:text-[8.75rem] 2xl:text-[9.75rem]">
               {surname}
             </span>
           </h1>
 
-          <p className="mt-6 max-w-md text-lg font-medium leading-snug sm:text-xl xl:max-w-lg xl:text-2xl 2xl:mt-8 2xl:max-w-xl 2xl:text-[1.75rem]">{site.role}</p>
+          <p className="hero-in mt-6 max-w-md [--i:3] text-lg font-medium leading-snug sm:text-xl xl:max-w-lg xl:text-2xl 2xl:mt-8 2xl:max-w-xl 2xl:text-[1.75rem]">{site.role}</p>
 
-          <div className="mt-8 flex flex-wrap items-center gap-3 2xl:mt-10">
+          <div className="hero-in mt-8 flex flex-wrap items-center gap-3 [--i:4] 2xl:mt-10">
             <Link
               href="/#projects"
               className={cn(buttonVariants(), "h-12 rounded-md px-6 text-base xl:h-14 xl:px-8 xl:text-lg")}
@@ -71,7 +72,7 @@ function HeroPoster() {
         </div>
 
         {portrait ? (
-          <div className="order-1 flex justify-center pt-8 lg:order-2 lg:justify-end lg:pt-4">
+          <div className="hero-portrait order-1 flex justify-center pt-8 lg:order-2 lg:justify-end lg:pt-4">
             <Image
               src={portrait.src}
               alt={portrait.alt}
@@ -96,7 +97,7 @@ export function Hero() {
       <div className="page-grid">
         <div aria-hidden="true" className="hidden lg:block" />
         <div className="min-w-0 pb-20 pt-14 lg:pb-28 lg:pt-20">
-          <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-end lg:gap-16">
+          <Reveal className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-end lg:gap-16">
             <p className="max-w-xl text-xl leading-relaxed sm:text-2xl sm:leading-relaxed">
               {site.intro}
             </p>
@@ -130,7 +131,7 @@ export function Hero() {
                 </ol>
               </nav>
             ) : null}
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>
