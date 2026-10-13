@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowDown, ArrowRight, FileText } from "lucide-react";
+import { PointerField } from "@/components/pointer-field";
 import { Reveal } from "@/components/reveal";
 import { buttonVariants } from "@/components/ui/button";
 import { featuredProjects, site } from "@/data/portfolio";
@@ -17,7 +18,7 @@ function HeroPoster() {
   const givenNames = words.join(" ");
 
   return (
-    <div className="relative isolate overflow-hidden border-b border-rule">
+    <PointerField className="relative isolate overflow-hidden border-b border-rule">
       {/* Purple glow behind the portrait: centred on phones, right on desktop. */}
       <div
         aria-hidden="true"
@@ -25,7 +26,7 @@ function HeroPoster() {
       />
 
       <div className="mx-auto grid w-full max-w-6xl items-end 2xl:max-w-[100rem] 2xl:px-14 gap-x-8 px-5 sm:px-8 lg:min-h-[min(90svh,60rem)] lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
-        <div className="relative z-10 order-2 pb-14 pt-8 lg:order-1 lg:self-center lg:py-20">
+        <div className="hero-copy relative z-10 order-2 pb-14 pt-8 lg:order-1 lg:self-center lg:py-20">
           <p className="hero-in label lg:text-xs 2xl:text-sm">
             {site.school} <span className="text-ink">/</span> {site.location}
           </p>
@@ -85,7 +86,7 @@ function HeroPoster() {
           </div>
         ) : null}
       </div>
-    </div>
+    </PointerField>
   );
 }
 

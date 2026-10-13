@@ -170,6 +170,20 @@
   .hero-glow {
     animation: hero-glow 9s ease-in-out infinite alternate;
   }
+  /*
+   * Mouse parallax, fed by components/pointer-field.tsx: the glow follows the
+   * cursor while the portrait and the text drift a little in opposite ways.
+   * `translate` is used so it never fights the entrance transforms above.
+   */
+  .hero-glow {
+    translate: calc(var(--px, 0) * 3%) calc(var(--py, 0) * 3%);
+  }
+  .hero-portrait {
+    translate: calc(var(--px, 0) * -14px) 0;
+  }
+  .hero-copy {
+    translate: calc(var(--px, 0) * 6px) calc(var(--py, 0) * 4px);
+  }
   @keyframes hero-in {
     from {
       opacity: 0;
