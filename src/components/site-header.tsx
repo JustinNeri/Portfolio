@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { HeaderNav, ScrollProgress } from "@/components/header-nav";
 import { MobileNav } from "@/components/mobile-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { navLinks, site } from "@/data/portfolio";
@@ -19,11 +18,7 @@ export function SiteHeader() {
   const items = getNavItems();
 
   return (
-    <header
-      // Named so page transitions leave it in place; see globals.css.
-      style={{ viewTransitionName: "site-header" }}
-      className="sticky top-0 z-40 border-b border-rule bg-background/85 backdrop-blur-md"
-    >
+    <header className="sticky top-0 z-40 border-b border-rule bg-background/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-5 sm:px-8 2xl:max-w-[100rem] 2xl:px-14">
         <Link
           href="/"
@@ -39,13 +34,36 @@ export function SiteHeader() {
         </Link>
 
         <div className="flex items-center gap-1 md:gap-5">
-          <HeaderNav items={items} />
+          <nav aria-label="Main" className="hidden md:block">
+            <ul className="flex items-center gap-8 text-sm">
+              {items.map((item) => (
+                <li key={item.href}>
+                  {item.external ? (
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="link py-2 text-foreground"
+                    >
+                      {item.label}
+                    </a>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className="py-2 text-muted-foreground transition-colors hover:text-foreground"
+                    >
+                      {item.label}
+                    </Link>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </nav>
 
           <ThemeToggle />
           <MobileNav items={items} />
         </div>
       </div>
-      <ScrollProgress />
     </header>
   );
 }

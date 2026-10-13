@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { ViewTransition } from "react";
 import type { ProjectImage } from "@/data/portfolio";
 import { cn } from "@/lib/utils";
 
@@ -10,17 +9,14 @@ export function BrowserFrame({
   sizes,
   priority = false,
   className,
-  transitionName,
 }: {
   image: ProjectImage;
   host?: string | null;
   sizes: string;
   priority?: boolean;
   className?: string;
-  /** Shared by a list and its case study so the frame morphs between them. */
-  transitionName?: string;
 }) {
-  const frame = (
+  return (
     <div
       className={cn(
         "overflow-hidden rounded-lg border border-border bg-card shadow-[0_24px_60px_-30px_rgb(0_0_0/0.3)] dark:shadow-[0_24px_60px_-30px_rgb(0_0_0/0.8)]",
@@ -50,20 +46,6 @@ export function BrowserFrame({
       </div>
     </div>
   );
-
-  if (!transitionName) return frame;
-
-  // `default="none"` keeps the frame still during unrelated transitions.
-  return (
-    <ViewTransition name={transitionName} share="morph" default="none">
-      {frame}
-    </ViewTransition>
-  );
-}
-
-/** The transition name a project's screenshot carries on every page. */
-export function shotTransitionName(slug: string): string {
-  return `project-shot-${slug}`;
 }
 
 export function hostOf(url: string | null): string | null {

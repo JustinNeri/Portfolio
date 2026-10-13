@@ -1,9 +1,8 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { BrowserFrame, hostOf, shotTransitionName } from "@/components/browser-frame";
+import { BrowserFrame, hostOf } from "@/components/browser-frame";
 import { ProjectLinks } from "@/components/project-links";
 import { TechList } from "@/components/tech-list";
-import { Tilt } from "@/components/tilt";
 import { projectKindLabel, type Project } from "@/data/portfolio";
 
 /** "Group project · Not yet deployed · 2025" — whichever parts exist. */
@@ -22,14 +21,11 @@ export function ProjectCard({ project }: { project: Project }) {
     <article aria-labelledby={`card-${project.slug}`} className="flex h-full flex-col">
       <Link href={href} aria-label={`${project.title} case study`} className="group/shot block">
         {project.cover ? (
-          <Tilt>
-            <BrowserFrame
-              image={project.cover}
-              host={hostOf(project.liveUrl)}
-              sizes="(min-width: 1152px) 480px, (min-width: 768px) 50vw, 100vw"
-              transitionName={shotTransitionName(project.slug)}
-            />
-          </Tilt>
+          <BrowserFrame
+            image={project.cover}
+            host={hostOf(project.liveUrl)}
+            sizes="(min-width: 1152px) 480px, (min-width: 768px) 50vw, 100vw"
+          />
         ) : (
           // No screenshot yet: a plain title panel in the same shape as the others.
           <div className="grid aspect-[2400/1580] place-items-center rounded-lg border border-border bg-card px-6 transition-colors group-hover/shot:border-ink">

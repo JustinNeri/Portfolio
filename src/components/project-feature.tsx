@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { BrowserFrame, hostOf, shotTransitionName } from "@/components/browser-frame";
+import { BrowserFrame, hostOf } from "@/components/browser-frame";
 import { projectMeta } from "@/components/project-card";
 import { ProjectLinks } from "@/components/project-links";
 import { TechList } from "@/components/tech-list";
-import { Tilt } from "@/components/tilt";
 import type { Project } from "@/data/portfolio";
 import { cn } from "@/lib/utils";
 
@@ -33,14 +32,11 @@ export function ProjectFeature({
           aria-label={`${project.title} case study`}
           className={cn("group/shot block lg:col-span-7", flip && "lg:order-2")}
         >
-          <Tilt>
-            <BrowserFrame
-              image={project.cover}
-              host={hostOf(project.liveUrl)}
-              sizes="(min-width: 1152px) 560px, (min-width: 1024px) 50vw, 100vw"
-              transitionName={shotTransitionName(project.slug)}
-            />
-          </Tilt>
+          <BrowserFrame
+            image={project.cover}
+            host={hostOf(project.liveUrl)}
+            sizes="(min-width: 1152px) 560px, (min-width: 1024px) 50vw, 100vw"
+          />
         </Link>
       ) : null}
 
