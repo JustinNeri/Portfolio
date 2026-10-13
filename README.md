@@ -1,4 +1,4 @@
-# Justin Neri Pangilinan — Portfolio
+# Justin Neri Pangilinan — Portfolio - UPDATE
 
 Personal portfolio built with Next.js (App Router), TypeScript, Tailwind CSS 4,
 shadcn/ui, Motion and Lucide.
