@@ -155,14 +155,33 @@
   letter-spacing: 0.005em;
 }
 
-/* Scroll reveal: only hidden when motion is welcome; see components/reveal.tsx. */
+/*
+ * Page fade: each route fades in on arrival; see app/template.tsx. Opacity
+ * only, and `backwards` so nothing lingers on the wrapper once it ends.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .page-in {
+    animation: page-in 0.35s ease-out backwards;
+  }
+  @keyframes page-in {
+    from {
+      opacity: 0;
+    }
+  }
+}
+
+/*
+ * Scroll reveal: a soft fade with only a slight lift, so nothing travels far
+ * while the page scrolls. Only hidden when motion is welcome; see
+ * components/reveal.tsx.
+ */
 @media (prefers-reduced-motion: no-preference) {
   .reveal {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(6px);
     transition:
-      opacity 0.5s cubic-bezier(0.21, 0.47, 0.32, 0.98),
-      transform 0.5s cubic-bezier(0.21, 0.47, 0.32, 0.98);
+      opacity 0.6s ease-out,
+      transform 0.6s ease-out;
   }
   .reveal[data-in="true"] {
     opacity: 1;
