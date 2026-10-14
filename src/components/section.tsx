@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import { Reveal } from "@/components/reveal";
+import { revealOrder } from "@/lib/reveal";
 import { cn } from "@/lib/utils";
 
 /**
@@ -26,20 +28,27 @@ export function Section({
         <span className="label sticky top-24 text-ink">{index}</span>
       </div>
       <div className={cn("min-w-0 border-t border-rule py-20 lg:py-28", className)}>
-        <header className="max-w-2xl">
-          <p aria-hidden="true" className="label mb-4 text-ink lg:hidden">
-            {index}
-          </p>
-          <h2
-            id={`${id}-title`}
-            className="font-display text-4xl leading-[1.05] sm:text-5xl"
-          >
-            {title}
-          </h2>
-          {lede ? (
-            <p className="mt-5 text-lg leading-relaxed text-muted-foreground">{lede}</p>
-          ) : null}
-        </header>
+        <Reveal>
+          <header className="max-w-2xl">
+            <p aria-hidden="true" className="label mb-4 text-ink lg:hidden">
+              {index}
+            </p>
+            <h2
+              id={`${id}-title`}
+              className="font-display text-4xl leading-[1.05] sm:text-5xl"
+            >
+              {title}
+            </h2>
+            {lede ? (
+              <p
+                className="reveal-item mt-5 text-lg leading-relaxed text-muted-foreground"
+                style={revealOrder(1)}
+              >
+                {lede}
+              </p>
+            ) : null}
+          </header>
+        </Reveal>
         {children}
       </div>
     </section>

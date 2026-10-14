@@ -4,6 +4,7 @@ import { GitHubIcon, LinkedInIcon } from "@/components/icons";
 import { Reveal } from "@/components/reveal";
 import { Section } from "@/components/section";
 import { sectionCopy, site } from "@/data/portfolio";
+import { revealOrder } from "@/lib/reveal";
 
 type Channel = {
   label: string;
@@ -75,8 +76,12 @@ export function Contact({ index }: { index: string }) {
     >
       <Reveal className="mt-12">
         <ul className="max-w-3xl border-t border-border">
-          {channels.map((channel) => (
-            <li key={channel.label} className="border-b border-border">
+          {channels.map((channel, i) => (
+            <li
+              key={channel.label}
+              className="reveal-item border-b border-border"
+              style={revealOrder(i)}
+            >
               <a
                 href={channel.href}
                 {...(channel.external ? { target: "_blank", rel: "noreferrer" } : {})}

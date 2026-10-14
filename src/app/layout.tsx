@@ -69,7 +69,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <noscript>
-          <style>{".reveal{opacity:1!important;transform:none!important}"}</style>
+          <style>{".reveal,.reveal-item{opacity:1!important;transform:none!important}"}</style>
         </noscript>
       </head>
       <body id="top" className="flex min-h-svh flex-col overflow-x-clip">

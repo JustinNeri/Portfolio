@@ -7,6 +7,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { BrowserFrame, hostOf } from "@/components/browser-frame";
 import { projectMeta } from "@/components/project-card";
 import { ProjectLinks } from "@/components/project-links";
+import { Reveal } from "@/components/reveal";
 import { TechList } from "@/components/tech-list";
 import { getProject, publishedProjects, site } from "@/data/portfolio";
 
@@ -56,9 +57,11 @@ export async function generateMetadata({
 /** A labelled row of the case study: the label in a side column, content beside it. */
 function Row({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <section className="grid gap-4 border-t border-border py-10 md:grid-cols-[11rem_minmax(0,1fr)] md:gap-10 lg:py-12">
-      <h2 className="label pt-1.5 text-foreground">{label}</h2>
-      <div className="min-w-0 max-w-2xl">{children}</div>
+    <section className="border-t border-border py-10 lg:py-12">
+      <Reveal className="grid gap-4 md:grid-cols-[11rem_minmax(0,1fr)] md:gap-10">
+        <h2 className="label pt-1.5 text-foreground">{label}</h2>
+        <div className="min-w-0 max-w-2xl">{children}</div>
+      </Reveal>
     </section>
   );
 }

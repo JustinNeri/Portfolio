@@ -2,6 +2,7 @@ import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { Section } from "@/components/section";
 import { certifications, education, sectionCopy, type Certification } from "@/data/portfolio";
+import { revealOrder } from "@/lib/reveal";
 
 /** One certification as a compact tile; a link when it has a credential URL. */
 function CertificationTile({ cert }: { cert: Certification }) {
@@ -51,10 +52,11 @@ export function EducationSection({ index }: { index: string }) {
         <Reveal className="mt-14">
           <h3 className="label pb-3 text-foreground">Degree</h3>
           <ul className="border-t border-border">
-            {education.map((entry) => (
+            {education.map((entry, i) => (
               <li
                 key={`${entry.school}-${entry.degree}`}
-                className="flex flex-col gap-4 border-b border-rule py-5 md:flex-row md:items-end md:justify-between md:gap-10"
+                style={revealOrder(i)}
+                className="reveal-item flex flex-col gap-4 border-b border-rule py-5 md:flex-row md:items-end md:justify-between md:gap-10"
               >
                 <div>
                   <p className="font-display text-2xl leading-snug">{entry.degree}</p>
@@ -83,8 +85,8 @@ export function EducationSection({ index }: { index: string }) {
             </p>
           </div>
           <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {certifications.map((cert) => (
-              <li key={cert.name}>
+            {certifications.map((cert, i) => (
+              <li key={cert.name} className="reveal-item" style={revealOrder(i)}>
                 <CertificationTile cert={cert} />
               </li>
             ))}

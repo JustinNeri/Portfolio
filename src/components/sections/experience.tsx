@@ -1,6 +1,7 @@
 import { Reveal } from "@/components/reveal";
 import { Section } from "@/components/section";
 import { experience, sectionCopy } from "@/data/portfolio";
+import { revealOrder } from "@/lib/reveal";
 
 /** Work experience. Renders nothing until `experience` in the data file has entries. */
 export function ExperienceSection({ index }: { index: string }) {
@@ -10,10 +11,11 @@ export function ExperienceSection({ index }: { index: string }) {
     <Section id="experience" index={index} title="Experience" lede={sectionCopy.experience}>
       <Reveal className="mt-14">
         <ul className="max-w-3xl border-t border-border">
-          {experience.map((entry) => (
+          {experience.map((entry, i) => (
             <li
               key={`${entry.organization}-${entry.role}`}
-              className="grid gap-2 border-b border-rule py-6 md:grid-cols-[11rem_minmax(0,1fr)] md:gap-10"
+              style={revealOrder(i)}
+              className="reveal-item grid gap-2 border-b border-rule py-6 md:grid-cols-[11rem_minmax(0,1fr)] md:gap-10"
             >
               <p className="label pt-1.5">{entry.period}</p>
               <div>

@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { Section } from "@/components/section";
 import { about } from "@/data/portfolio";
+import { revealOrder } from "@/lib/reveal";
 
 /**
  * About: an opening statement and short bio beside the quick facts, then the
@@ -34,8 +35,12 @@ export function About({ index }: { index: string }) {
         </div>
 
         <dl className="self-start border-t border-border">
-          {about.facts.map((fact) => (
-            <div key={fact.label} className="border-b border-border py-3.5">
+          {about.facts.map((fact, i) => (
+            <div
+              key={fact.label}
+              className="reveal-item border-b border-border py-3.5"
+              style={revealOrder(i + 1)}
+            >
               <dt className="label">{fact.label}</dt>
               <dd className="mt-1">{fact.value}</dd>
             </div>
@@ -48,7 +53,11 @@ export function About({ index }: { index: string }) {
           <h3 className="label pb-4 text-foreground">What I focus on</h3>
           <ol className="grid border-t border-border md:grid-cols-3 md:gap-x-10">
             {about.focusAreas.map((area, i) => (
-              <li key={area.title} className="border-b border-rule py-6 md:border-b-0 md:pb-0">
+              <li
+                key={area.title}
+                className="reveal-item border-b border-rule py-6 md:border-b-0 md:pb-0"
+                style={revealOrder(i)}
+              >
                 <span aria-hidden="true" className="label text-ink">
                   {String(i + 1).padStart(2, "0")}
                 </span>

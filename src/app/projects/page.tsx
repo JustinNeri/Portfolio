@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { ProjectCard } from "@/components/project-card";
+import { Reveal } from "@/components/reveal";
 import { publishedProjects, sectionCopy, site } from "@/data/portfolio";
 
 const title = "Projects";
@@ -47,9 +48,12 @@ export default function ProjectsPage() {
         </header>
 
         <ul className="mt-14 grid gap-x-10 gap-y-16 md:grid-cols-2 lg:mt-20">
-          {projects.map((project) => (
+          {projects.map((project, i) => (
             <li key={project.slug}>
-              <ProjectCard project={project} />
+              {/* The right-hand card of each row follows a beat after the left. */}
+              <Reveal delay={(i % 2) * 0.1} className="h-full">
+                <ProjectCard project={project} />
+              </Reveal>
             </li>
           ))}
         </ul>
