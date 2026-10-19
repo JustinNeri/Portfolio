@@ -781,6 +781,99 @@ export const projects: Project[] = [
   },
 
   {
+    slug: "intelsy-ppe",
+    title: "INTELSY PPE Detection",
+    tagline: "YOLOv8 Personal Protective Equipment Detection System",
+    description:
+      "A group final project for INTELSY by the MIGHT Team. A YOLOv8 object-detection model fine-tuned on a labelled worksite dataset finds hardhats, safety vests, masks, gloves and goggles in images and webcam video, as well as the people and missing equipment, and turns each result into a short plain-language summary.",
+    problem:
+      "Checking that everyone on a construction site or factory floor is wearing their protective equipment is usually done by eye, and it is easy to miss someone. The project explores automating that check with object detection, as decision support for a safety officer rather than automatic enforcement.",
+    features: [
+      "Detects 14 classes, including Hardhat, Safety Vest, Mask, Gloves and Goggles and their NO- counterparts, plus Person, Ladder, Safety Cone and falls.",
+      "Runs on single images, folders of images and live webcam video, drawing bounding boxes with class labels and confidence.",
+      "Classes can be kept or hidden at inference time, with adjustable confidence and IoU thresholds.",
+      "Each run writes a plain-language summary of what was detected and whether required PPE is missing.",
+      "A ready checkpoint is included, so the webcam demo runs without training.",
+      "One-command reproducible training run, with a script that builds the ablation table.",
+    ],
+    decisions: [
+      {
+        title: "Measured against a baseline, not just reported",
+        detail:
+          "A non-deep-learning baseline that predicts the most common class for every box scores 0.41 accuracy and 0.04 macro-F1, which gives the detector's numbers something to be compared against. Short ablation runs on image size and data fraction are tabulated alongside.",
+      },
+      {
+        title: "The final model was trained in Colab",
+        detail:
+          "Training continued from an earlier checkpoint for 30 epochs at 640px on Google Colab. The candidate checkpoint reached 0.79 mAP@0.5 and 0.52 mAP@0.5:0.95 on the test split, while short CPU runs stayed for quick reproducibility.",
+      },
+      {
+        title: "Decision support, not enforcement",
+        detail:
+          "The release notes are explicit that detections vary with occlusion, motion blur and small objects, so output is framed as an aid for a person checking compliance.",
+      },
+    ],
+
+    // TODO(justin): this is a group project (four contributors on GitHub:
+    // Damudachi 24 commits, neriahv 3, you 2, ShawnUriel 1). Your two commits
+    // were a large update touching the docs, Makefile, run.sh, data.yaml and
+    // scripts/detect.py (27 Mar 2026), and adding the shared webcam
+    // checkpoint models/team_webcam_best.pt (28 Mar 2026). Say which parts
+    // were yours. Until then the "My contribution" block stays hidden.
+    contribution: null,
+
+    technologies: [
+      "Python",
+      "YOLOv8 (Ultralytics)",
+      "PyTorch",
+      "OpenCV",
+      "Roboflow",
+      "Jupyter",
+      "Google Colab",
+      "pandas & scikit-learn",
+    ],
+    kind: "group",
+    year: "2026",
+    repoUrl: "https://github.com/ShawnUriel/MIGHT-TEAM_INTELSY",
+    liveUrl: null,
+    // Both images are crops of runs/detect_colab/colab_ppe_v_final/val_batch2_pred.jpg
+    // in the repository — the model's own predictions on validation images
+    // from the Roboflow dataset (CC BY 4.0).
+    cover: {
+      src: "/projects/intelsy-ppe/cover.webp",
+      alt: "Six worksite photos with the model's detections drawn on them: hardhats boxed and labelled with confidence scores, and one person flagged NO-Safety Vest.",
+      width: 1440,
+      height: 900,
+    },
+    gallery: [
+      {
+        src: "/projects/intelsy-ppe/validation-predictions.webp",
+        alt: "A four-by-four grid of construction-site photos with the model's hardhat and safety-vest detections drawn as labelled boxes.",
+        width: 1920,
+        height: 1920,
+        caption: "Predictions on a validation batch from the final Colab run.",
+      },
+    ],
+    featured: false,
+    published: true,
+    source: {
+      repository: "https://github.com/ShawnUriel/MIGHT-TEAM_INTELSY",
+      files: [
+        "README.md",
+        "docs/release_notes_v1.0.md",
+        "data/data.yaml",
+        "requirements.txt",
+        "scripts/detect.py",
+        "scripts/nlp_component_stub.py",
+        "scripts/non_dl_baseline.py",
+        "runs/detect_colab/colab_ppe_v_final/ (args.yaml, results.csv, val_batch2_pred.jpg)",
+      ],
+      notes:
+        "Owned by ShawnUriel, not you; four GitHub contributors (Damudachi 24 commits, neriahv 3, JustinNeri 2, ShawnUriel 1 on 2026-10-20). Repository description: \"Final Project for INTELSY\". The README's results table shows only the early short ablation runs (mAP@0.5 around 0.06–0.08); the 0.79 / 0.52 figures come from the release notes' v1.0 candidate checkpoint, and the final Colab run's results.csv ends at 0.78 / 0.52. The README also links a model card, final report draft and slides that are not in the repository. The NLP summary uses string templates (an optional transformers path exists), and the RL part is a small Q-learning experiment, so neither is described as a feature. Not deployed.",
+    },
+  },
+
+  {
     slug: "yumiscipe",
     title: "Yumiscipe",
     tagline: "Recipe Website",
@@ -881,9 +974,9 @@ export const skillGroups: SkillGroup[] = [
       },
       {
         name: "Python",
-        usedIn: [],
+        usedIn: ["intelsy-ppe"],
         confirmed: true,
-        note: "On your CV. Seen in OPSYS_FINAL, which isn't featured.",
+        note: "On your CV. Also seen in OPSYS_FINAL, which isn't listed.",
       },
       {
         name: "Java",
