@@ -128,7 +128,7 @@ export type Project = {
 };
 
 export type SkillGroup = {
-  title: "Frontend" | "Backend & Database" | "Tools";
+  title: "Frontend" | "Backend & Database" | "AI & Computer Vision" | "Tools";
   skills: Skill[];
 };
 
@@ -163,8 +163,8 @@ export const site: SiteConfig = {
   seoDescription:
     "Portfolio of Justin Neri Pangilinan, a fourth-year Computer Science student at Holy Angel University who builds full-stack web applications with React, Node.js and PostgreSQL.",
 
-  // TODO(justin): set your production URL once deployed, e.g. "https://justinneri.dev".
-  url: null,
+  // The portfolio link on your CV.
+  url: "https://justinneri.vercel.app",
 
   contact: {
     email: "justinneripangilinan2004@gmail.com",
@@ -684,10 +684,10 @@ export const projects: Project[] = [
       },
     ],
 
-    // TODO(justin): this is a group thesis (four contributors on GitHub; you
-    // have the second-most commits). Say which parts were yours. Until then
-    // the "My contribution" block stays hidden.
-    contribution: null,
+    // From your CV's TulongGuro bullets (four contributors on GitHub; you
+    // have the second-most commits).
+    contribution:
+      "I co-developed TulongGuro in a four-member thesis team: a learning management system in which a Gemini vision-language model reads typed or handwritten student work against the teacher's rubric and drafts scores and feedback. I kept teachers in control with a human-in-the-loop review flow, where every AI draft is validated and editable and releasing grades to students is a separate step, and delivered separate Teacher, Student and Admin interfaces as a progressive web app, with progress dashboards for curriculum competencies and student badges.",
 
     technologies: [
       "React 19",
@@ -917,7 +917,7 @@ export const projects: Project[] = [
 ];
 
 // ── Skills ───────────────────────────────────────────────────────────────
-// Taken from the Technical Skills section of your CV, regrouped into three
+// Taken from the Technical Skills section of your CV, regrouped into four
 // lists. `usedIn` names the featured projects whose code or dependency files
 // show the skill. `confirmed: false` entries are hidden from the site.
 
@@ -984,6 +984,22 @@ export const skillGroups: SkillGroup[] = [
         confirmed: true,
         note: "On your CV. CONFLICT (minor): none of your public repositories contain Java — fine to keep, just be ready to talk about it.",
       },
+    ],
+  },
+  {
+    // The "AI & Computer Vision" line of your CV.
+    title: "AI & Computer Vision",
+    skills: [
+      { name: "YOLOv8", usedIn: ["intelsy-ppe"], confirmed: true },
+      { name: "PyTorch", usedIn: ["intelsy-ppe"], confirmed: true },
+      { name: "OpenCV", usedIn: ["intelsy-ppe"], confirmed: true },
+      { name: "Object detection", usedIn: ["intelsy-ppe"], confirmed: true },
+      {
+        name: "Model evaluation (mAP, precision & recall)",
+        usedIn: ["intelsy-ppe"],
+        confirmed: true,
+      },
+      { name: "Roboflow", usedIn: ["intelsy-ppe"], confirmed: true },
     ],
   },
   {

@@ -24,7 +24,7 @@ export function Skills({ index }: { index: string }) {
       title="Skills"
       lede={sectionCopy.skills}
     >
-      <div className="mt-14 grid gap-x-12 gap-y-14 md:grid-cols-3">
+      <div className="mt-14 grid gap-x-12 gap-y-14 md:grid-cols-2 lg:grid-cols-4">
         {groups.map((group, i) => (
           <Reveal key={group.title} delay={i * 0.08}>
             <h3 className="label pb-3 text-foreground">{group.title}</h3>
