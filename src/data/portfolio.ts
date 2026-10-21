@@ -293,6 +293,17 @@ export const certifications: Certification[] = [
     url: "https://www.credly.com/badges/0859cf9d-9505-4c99-aaf7-a1bd2d0026d5/linked_in_profile",
   },
   {
+    name: "Introduction to Modern AI",
+    issuer: "Cisco Networking Academy",
+    url: "https://www.credly.com/badges/bdfcaca7-15cf-479d-8099-384b34b2015a/linked_in_profile",
+  },
+  {
+    // Part of the Cisco AI Business Practitioner (AIBIZ) learning collection.
+    name: "Optimizing Generative AI",
+    issuer: "Cisco Networking Academy",
+    url: "https://www.credly.com/badges/2567e45b-1599-4f3b-bc56-83001ee42199/linked_in_profile",
+  },
+  {
     // TODO(justin): confirm the issuer — the credential page didn't state it
     // in the part I could read; IBM SkillsBuild is my assumption.
     name: "Artificial Intelligence Fundamentals",
