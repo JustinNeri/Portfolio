@@ -96,7 +96,7 @@ export function Hero() {
       <div className="page-grid">
         <div aria-hidden="true" className="hidden lg:block" />
         <div className="min-w-0 pb-20 pt-14 lg:pb-28 lg:pt-20">
-          <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-end lg:gap-16">
+          <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-center lg:gap-16">
             <p className="max-w-xl text-xl leading-relaxed sm:text-2xl sm:leading-relaxed">
               {site.intro}
             </p>
