@@ -899,7 +899,14 @@ export const projects: Project[] = [
     repoUrl: null,
     // Left out on purpose, as you asked: the description only, no live link.
     liveUrl: null,
-    cover: null,
+    // A capture of the sign-in page (supplied by you), cropped to 16:10. The
+    // school's logo, name and motto are pixelated and blurred, as you asked.
+    cover: {
+      src: "/projects/grade-portal/cover.webp",
+      alt: "Grade Portal sign-in page with the school's logo and name blurred out, the heading “Grade 6 Grade Portal”, and a card with “I am a student” and “I am a teacher” buttons",
+      width: 1454,
+      height: 909,
+    },
     gallery: [],
     featured: false,
     published: true,
