@@ -1221,7 +1221,13 @@ export const projects: Project[] = [
     repoUrl: "https://github.com/JustinNeri/FINAL_CLOUDCOM",
     // Left out on purpose, as you asked: no live link.
     liveUrl: null,
-    cover: null,
+    // A capture of the web app's login screen (supplied by you), cropped to 16:10.
+    cover: {
+      src: "/projects/monster-control-center/cover.webp",
+      alt: "Monster Control Center login screen on a dark blue background, with a red-and-white ball logo, a Player Login card with username and password fields, and a Create Player Account link",
+      width: 1451,
+      height: 907,
+    },
     gallery: [],
     featured: false,
     published: true,
