@@ -988,7 +988,14 @@ export const projects: Project[] = [
     // 404. Make it public and set repoUrl to source.repository to show it.
     repoUrl: null,
     liveUrl: null,
-    cover: null,
+    // A capture of a finished clipping project (supplied by you), cropped to
+    // 16:10. The app's own header calls it "AI Shorts Generator".
+    cover: {
+      src: "/projects/ai-video-clipper/cover.webp",
+      alt: "A finished clipping project in the app's dark interface: a vertical 9:16 clip with an AI score of 78, its generated YouTube title, description, hashtags and hook, a Download button, and the project's source and settings",
+      width: 1464,
+      height: 915,
+    },
     gallery: [],
     featured: false,
     published: true,
