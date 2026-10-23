@@ -787,9 +787,14 @@ export const projects: Project[] = [
     year: "2025",
     repoUrl: "https://github.com/adriann47/Carepanion",
     liveUrl: null,
-    // TODO(justin): no screenshots exist in the repository. Add phone
-    // screenshots to public/projects/carepanion/ and set a cover.
-    cover: null,
+    // The cover is the app's logo artwork (supplied by you), not a screenshot.
+    // TODO(justin): add phone screenshots to public/projects/carepanion/ for a gallery.
+    cover: {
+      src: "/projects/carepanion/cover.webp",
+      alt: "CarePanion logo in orange with the tagline “A Voice-Driven Reminder App for Wellness and Daily Care”",
+      width: 1920,
+      height: 1200,
+    },
     gallery: [],
     featured: false,
     published: true,
