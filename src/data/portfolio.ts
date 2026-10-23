@@ -812,7 +812,13 @@ export const projects: Project[] = [
     // 404. Make it public and set repoUrl to source.repository to show it.
     repoUrl: null,
     liveUrl: null,
-    cover: null,
+    // A capture of the sign-in page (supplied by you), cropped to 16:10.
+    cover: {
+      src: "/projects/drezzit/cover.webp",
+      alt: "drezzit sign-in page with the tagline “Snap your style. Fit your avatar.”, a Continue with Google button, and a cartoon avatar in a yellow dress standing in a pixel-art bedroom",
+      width: 1450,
+      height: 906,
+    },
     gallery: [],
     featured: false,
     published: true,
