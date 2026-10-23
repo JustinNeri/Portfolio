@@ -1162,6 +1162,85 @@ export const projects: Project[] = [
   },
 
   {
+    slug: "monster-control-center",
+    title: "Monster Control Center",
+    tagline: "Location-Based Monster-Catching App on AWS",
+    description:
+      "A group final project for Cloud Computing (6CloudCom): a Flutter app where players sign in, register monsters at GPS spawn points, and catch the ones within range of where they stand. It runs on Android and the web against a PHP backend on AWS, and can start and stop the backend's EC2 server from inside the app.",
+    problem:
+      "The course asked each team to design and build the cloud infrastructure behind a monster-catching app: a web server and a database server in different AWS regions, a VPN between the phone and the server, and control over whether the server is running, all with CRUD for players and monsters, catching and a leaderboard.",
+    features: [
+      "Player accounts: register, sign in, and update the profile and password, with the login remembered between launches.",
+      "Add monsters with a spawn point and catch radius picked on a map.",
+      "Catch Monsters scans the player's GPS position for monsters in range, then sounds an alarm, vibrates and flashes the phone's torch.",
+      "Edit and delete monsters, and see a player's catches on a map.",
+      "A Top Hunters leaderboard of the players with the most catches.",
+      "An instance screen that shows whether the EC2 server is online and starts or stops it.",
+      "Catching pauses while the phone is offline.",
+    ],
+    decisions: [
+      {
+        title: "The backend address is set at build time",
+        detail:
+          "The API and instance-control addresses are passed in when the app is built rather than hard-coded, so the same code builds an Android APK or a web app pointed at any backend.",
+      },
+      {
+        title: "Screens are tested against a fake server",
+        detail:
+          "The test folder holds 45 widget and unit tests, covering account creation, catching, monster management and response parsing, that run against a fake HTTP server instead of the real backend.",
+      },
+      {
+        title: "Known backend gaps are written down",
+        detail:
+          "The setup guide lists what the PHP backend still needs: hashed passwords, prepared statements, reading the player from a session instead of the request, and protecting the start/stop endpoint.",
+      },
+    ],
+
+    // TODO(justin): this is a group project (four contributors on GitHub:
+    // you 7 commits under two names, neriahv 3, ShawnUriel 3). Your commits
+    // were the first upload of the app (27 Mar 2026), and on 23 Oct 2026 the
+    // Vercel build, bug fixes, the alarm sound, offline pause, the backend
+    // setup guide, and a UI redesign with remembered login, instance polling,
+    // form checks and the tests. Say which parts were yours, including any of
+    // the AWS work, which isn't in the repository. Until then the "My
+    // contribution" block stays hidden.
+    contribution: null,
+
+    technologies: [
+      "Flutter",
+      "Dart",
+      "flutter_map (OpenStreetMap)",
+      "Geolocator",
+      "PHP",
+      "AWS EC2",
+      "AWS Lambda & API Gateway",
+      "Tailscale VPN",
+    ],
+    kind: "group",
+    year: "2026",
+    repoUrl: "https://github.com/JustinNeri/FINAL_CLOUDCOM",
+    // Left out on purpose, as you asked: no live link.
+    liveUrl: null,
+    cover: null,
+    gallery: [],
+    featured: false,
+    published: true,
+    source: {
+      repository: "https://github.com/JustinNeri/FINAL_CLOUDCOM",
+      files: [
+        "README.md",
+        "backend/SETUP.md",
+        "6CloudCom Final Project.pdf",
+        "pubspec.yaml",
+        "lib/api.dart",
+        "test/",
+      ],
+      notes:
+        "Your repository, public; four contributors (JustinNeri 6 commits plus 1 as Justin Neri Pangilinan, neriahv 3, ShawnUriel 3 on 2026-10-23). The course and the infrastructure requirements (web server in Paris, database in North Virginia, VPC peering, Tailscale VPN, EC2 on/off from the app) come from the project brief PDF. The PHP backend and AWS setup are not in the repository; the default API address is a Tailscale address and the start/stop call goes to a Lambda in eu-west-3, which the setup guide says no longer exists. The app was not run, and the tests were not run.",
+    },
+  },
+
+  {
     slug: "yumiscipe",
     title: "Yumiscipe",
     tagline: "Recipe Website",
@@ -1220,7 +1299,7 @@ export const skillGroups: SkillGroup[] = [
       { name: "Vite", usedIn: ["workbud", "consulttrack", "libspace", "drezzit"], confirmed: true },
       {
         name: "Flutter & Dart",
-        usedIn: ["carepanion"],
+        usedIn: ["carepanion", "monster-control-center"],
         confirmed: true,
       },
       {
