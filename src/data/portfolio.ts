@@ -315,6 +315,16 @@ export const certifications: Certification[] = [
     issuer: "Simplilearn SkillUp",
     url: "https://simpli-web.app.link/e/xOdnjJ6Z76b",
   },
+  {
+    name: "Claude 101",
+    issuer: "Anthropic (Claude Academy)",
+    url: "https://academy.claude.com/verify/9eea07a142bb412ace802e7e8e2b2fee",
+  },
+  {
+    name: "Introduction to Claude Cowork",
+    issuer: "Anthropic (Claude Academy)",
+    url: "https://academy.claude.com/verify/449ca9ccebe9b7fe9f0249588c6e70a2",
+  },
 
   // These have no public credential page. To link one to a PDF: save the file in public/certificates/ and set `url`
   // to its path, e.g. "/certificates/generative-ai-literacy.pdf".
