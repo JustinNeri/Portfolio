@@ -753,6 +753,248 @@ export const projects: Project[] = [
   },
 
   {
+    slug: "drezzit",
+    title: "drezzit",
+    tagline: "Digital Wardrobe and Avatar Try-On",
+    description:
+      "An individual project: a digital wardrobe you fill by photographing your real clothes. Each photo is cut out and recognised in the browser, redrawn as a cartoon garment that fits a customisable 2D avatar, and saved to your closet so you can mix outfits in a pixel-art room.",
+    problem:
+      "It's hard to remember everything you own, so the same few outfits get worn while other clothes sit unused. drezzit makes the closet browsable and suggests outfits, without a paid API: background removal and recognition both run on the device.",
+    features: [
+      "Add clothes from one or several photos; the background is removed in the browser.",
+      "An on-device CLIP model guesses each garment's type, pattern and material, and every guess can be changed.",
+      "Garments are redrawn as cartoons in the avatar's style, or kept with the photo's own texture.",
+      "Layered try-on for tops, dresses, bottoms, outerwear and shoes, with separate slots for hats, glasses, scarves and bags.",
+      "\"Surprise me\" outfits scored on colour harmony, the weather, season tags and how recently each item was worn.",
+      "An outfit diary with a calendar, plus most-worn and long-unworn items.",
+      "Saved looks, sharing a look as an image, and avatar and room customisation.",
+      "Google sign-in, a demo closet that works with no backend, export of everything as a ZIP, and account deletion.",
+      "Installable as an app, with offline startup and a cached cut-out model.",
+    ],
+    decisions: [
+      {
+        title: "Photos never leave the device for processing",
+        detail:
+          "Background removal and garment recognition run in Web Workers in the browser. Only the cut-out, its cartoon and a thumbnail are uploaded, to a private storage bucket that Row Level Security limits to its owner.",
+      },
+      {
+        title: "Half of the recognition model is pre-computed",
+        detail:
+          "The text embeddings for every garment label are generated once at build time and shipped as JSON, so the browser downloads only CLIP's image model.",
+      },
+      {
+        title: "Headers that make cut-outs faster",
+        detail:
+          "Cross-origin isolation headers turn on multi-threaded background removal, which the README measures at about 2.5 times faster, and the service worker is never cached so updates roll out.",
+      },
+    ],
+
+    // TODO(justin): the repository includes app.md, the build prompt the app
+    // started from, so say what you wrote yourself versus with AI tools —
+    // as WorkBud does. The "My contribution" block stays hidden until then.
+    contribution: null,
+
+    technologies: [
+      "React 19",
+      "Vite",
+      "Tailwind CSS 4",
+      "Framer Motion",
+      "Supabase (Auth, Postgres, Storage)",
+      "Row Level Security",
+      "Transformers.js (CLIP)",
+      "@imgly/background-removal",
+      "Web Workers",
+      "PWA",
+    ],
+    kind: "individual",
+    year: "2026",
+    // TODO(justin): the repository is private, so a link would show visitors a
+    // 404. Make it public and set repoUrl to source.repository to show it.
+    repoUrl: null,
+    liveUrl: null,
+    cover: null,
+    gallery: [],
+    featured: false,
+    published: true,
+    source: {
+      repository: "https://github.com/JustinNeri/Drezzit",
+      files: [
+        "README.md",
+        "package.json",
+        "vercel.json",
+        "src/lib/stylist.js",
+        "supabase/migrations/",
+      ],
+      notes:
+        "Private repository (GitHub returned 404 to a signed-out request on 2026-10-23); you are the only committer (7 commits, 21–22 Oct 2026). Licensed AGPL-3.0. Features are as documented in the README — the app was not run. No live URL is given.",
+    },
+  },
+
+  {
+    slug: "grade-portal",
+    title: "Grade Portal",
+    tagline: "Report-Card Portal for an Elementary School",
+    description:
+      "An individual project: a mobile-friendly portal where elementary students see their released term grades together on one report-card page. Teachers enter, publish and correct grades for their assigned subjects, and one administrator manages accounts, sections and assignments.",
+    problem:
+      "Students and parents usually see grades only on the printed report card. The portal puts released grades online as a supplement to that card, while keeping each grade visible only to the people who should see it.",
+    features: [
+      "Students sign in with their LRN and see every subject on one report card; unreleased subjects read \"Not yet available\".",
+      "Teachers save draft grades, review, publish, and correct a published grade with a required reason.",
+      "The administrator sets up school years and sections, creates teacher and student accounts, and assigns teachers to sections and subjects.",
+      "Student import from a CSV template, and printable sign-in slips for each section.",
+      "Temporary passwords that must be replaced at first sign-in, and an authenticator code for the administrator.",
+      "An append-only audit log and a revision history for every grade.",
+      "Profile pictures for students and staff.",
+    ],
+    decisions: [
+      {
+        title: "The database is the authority",
+        detail:
+          "Every table has Row Level Security with read-only policies, and every write goes through a database function that re-checks role, account status, session and assignment. A bug in the web layer cannot widen access.",
+      },
+      {
+        title: "Sessions can be revoked",
+        detail:
+          "A password reset or deactivation invalidates every older session on the next request, and sessions expire after 8 hours for teachers.",
+      },
+      {
+        title: "Sign-in reveals nothing",
+        detail:
+          "An unknown LRN, a malformed LRN and a wrong password get the same response, with sign-ins rate-limited, so the login page can't be used to check whether a student exists.",
+      },
+      {
+        title: "No Supabase client in the browser",
+        detail:
+          "All data access happens in Server Components and Server Actions, auth cookies are httpOnly, and responses are never cached.",
+      },
+    ],
+
+    // TODO(justin): the repository includes an AGENTS.md for AI coding tools,
+    // so say what you wrote yourself versus with AI tools — as WorkBud does.
+    // The "My contribution" block stays hidden until then.
+    contribution: null,
+
+    technologies: [
+      "Next.js 16",
+      "TypeScript",
+      "Tailwind CSS 4",
+      "shadcn/ui",
+      "Supabase (Postgres, Auth)",
+      "Row Level Security",
+      "Zod",
+      "Vitest",
+      "Playwright",
+    ],
+    kind: "individual",
+    year: "2026",
+    // TODO(justin): the repository is private, so a link would show visitors a
+    // 404. Make it public and set repoUrl to source.repository to show it.
+    repoUrl: null,
+    // Left out on purpose, as you asked: the description only, no live link.
+    liveUrl: null,
+    cover: null,
+    gallery: [],
+    featured: false,
+    published: true,
+    source: {
+      repository: "https://github.com/JustinNeri/Grade-Portal-Grade6",
+      files: [
+        "README.md",
+        "docs/ARCHITECTURE.md",
+        "package.json",
+        "src/app/admin/students/slips/page.tsx",
+        "supabase/migrations/",
+      ],
+      notes:
+        "Private repository (GitHub returned 404 to a signed-out request on 2026-10-23); you are the only committer (17 commits, 11–21 Oct 2026). The school's name is left out of the page on purpose. The README describes it as a demonstration system to be used with fictional data until the school's privacy officer has reviewed it. Features are as documented in the README and architecture document — the app was not run.",
+    },
+  },
+
+  {
+    slug: "ai-video-clipper",
+    title: "AI Video Clipper",
+    tagline: "Short-Form Video Clipper and Generator",
+    description:
+      "An individual, personal-use tool that turns a long video into vertical clips for YouTube Shorts, TikTok and Reels. It transcribes the video, picks the best moments with an AI model, crops them to 9:16, burns in captions and normalises the audio. It can also make shorts from scratch in four formats.",
+    problem:
+      "Cutting a long video into shorts by hand means watching all of it, finding the good moments, then reframing, captioning and exporting each clip. The tool automates that pipeline at no cost, running on free tiers on a home PC.",
+    features: [
+      "Paste a link or upload a file, then preview and download the finished clips.",
+      "Transcription with Whisper, scene detection, and AI selection of the strongest moments.",
+      "Clips are cropped to 9:16, given word-timed captions, and normalised for loudness.",
+      "Would You Rather shorts with an AI-written question, voice-over, countdown and sound.",
+      "AI Stories: 30 to 60 second narrated stories with a hook, word-by-word captions and a payoff.",
+      "Facts shorts with a quiz over real photos, where every fact is checked by a second AI pass against its Wikipedia article.",
+      "Geography Explorer videos where a globe turns to a country, highlights it and narrates facts about it.",
+      "Batch generation with job status, retry and cancel.",
+      "Optional read-only YouTube analytics, which feed the channel's results back into how hooks and scripts are written.",
+    ],
+    decisions: [
+      {
+        title: "Local mode first",
+        detail:
+          "The web app and a Python worker both run on one PC and talk only through the Supabase database. That keeps it free, and avoids YouTube blocking downloads from cloud IPs. The code is structured so the worker can move to the cloud later.",
+      },
+      {
+        title: "Providers behind interfaces",
+        detail:
+          "The language model, transcription, text-to-speech and image sources each sit behind a small provider interface, so a free service can be swapped for another without touching the pipeline.",
+      },
+      {
+        title: "Facts are checked, not called verified",
+        detail:
+          "A fact is kept only after a second pass against its Wikipedia article, and the source is stored with it. The README still tells you to check a fact before posting, because the check lowers the risk but can't rule it out.",
+      },
+    ],
+
+    // TODO(justin): the repository includes CLAUDE.md and AGENTS.md, and docs
+    // that are prompts for AI coding tools, so say what you wrote yourself
+    // versus with AI tools — as WorkBud does. The "My contribution" block
+    // stays hidden until then.
+    contribution: null,
+
+    technologies: [
+      "Next.js 16",
+      "TypeScript",
+      "Tailwind CSS 4",
+      "Supabase (Postgres)",
+      "Python",
+      "FFmpeg",
+      "yt-dlp",
+      "PySceneDetect",
+      "Groq (Whisper, LLM)",
+      "edge-tts",
+      "Pillow",
+      "pytest",
+    ],
+    kind: "individual",
+    status: "Runs locally",
+    year: "2026",
+    // TODO(justin): the repository is private, so a link would show visitors a
+    // 404. Make it public and set repoUrl to source.repository to show it.
+    repoUrl: null,
+    liveUrl: null,
+    cover: null,
+    gallery: [],
+    featured: false,
+    published: true,
+    source: {
+      repository: "https://github.com/JustinNeri/YT_AUTO",
+      files: [
+        "README.md",
+        "docs/PROJECT_CONTEXT.md",
+        "docs/ROADMAP.md",
+        "package.json",
+        "worker/requirements.txt",
+        "worker/ (pipeline, generators, providers and tests file names)",
+      ],
+      notes:
+        "Private repository named YT_AUTO; the README titles it \"AI Video Clipper\" (GitHub returned 404 to a signed-out request on 2026-10-23). You are the only committer (26 commits, 6–20 Oct 2026). The worker has 416 pytest test functions across 24 files; they were not run. The README states it works end to end in local mode, with cloud deployment deferred. Features are as documented in the README and docs — the app was not run.",
+    },
+  },
+
+  {
     slug: "carepanion",
     title: "Carepanion",
     tagline: "Voice-Driven Reminder App for Wellness and Daily Care",
@@ -951,11 +1193,11 @@ export const skillGroups: SkillGroup[] = [
   {
     title: "Frontend",
     skills: [
-      { name: "React", usedIn: ["workbud", "consulttrack", "libspace"], confirmed: true },
-      { name: "JavaScript", usedIn: ["workbud", "consulttrack", "libspace"], confirmed: true },
+      { name: "React", usedIn: ["workbud", "consulttrack", "libspace", "drezzit"], confirmed: true },
+      { name: "JavaScript", usedIn: ["workbud", "consulttrack", "libspace", "drezzit"], confirmed: true },
       { name: "HTML & CSS", usedIn: ["workbud", "consulttrack", "libspace"], confirmed: true },
-      { name: "Tailwind CSS", usedIn: ["workbud", "consulttrack", "libspace"], confirmed: true },
-      { name: "Vite", usedIn: ["workbud", "consulttrack", "libspace"], confirmed: true },
+      { name: "Tailwind CSS", usedIn: ["workbud", "consulttrack", "libspace", "drezzit", "grade-portal"], confirmed: true },
+      { name: "Vite", usedIn: ["workbud", "consulttrack", "libspace", "drezzit"], confirmed: true },
       {
         name: "Flutter & Dart",
         usedIn: ["carepanion"],
@@ -963,13 +1205,13 @@ export const skillGroups: SkillGroup[] = [
       },
       {
         name: "TypeScript",
-        usedIn: [],
+        usedIn: ["grade-portal", "ai-video-clipper"],
         confirmed: false,
-        note: "TODO(justin): not on your CV and not in the featured repos. This portfolio is TypeScript — list it only if you're comfortable with it.",
+        note: "TODO(justin): not on your CV, but Grade Portal and AI Video Clipper are written in it, as is this portfolio. Set confirmed to true to show it.",
       },
       {
         name: "Next.js",
-        usedIn: [],
+        usedIn: ["grade-portal", "ai-video-clipper"],
         confirmed: false,
         note: "TODO(justin): same as TypeScript.",
       },
@@ -982,11 +1224,11 @@ export const skillGroups: SkillGroup[] = [
       { name: "REST API development", usedIn: ["workbud", "consulttrack"], confirmed: true },
       {
         name: "Authentication & role-based access",
-        usedIn: ["workbud", "consulttrack", "libspace"],
+        usedIn: ["workbud", "consulttrack", "libspace", "grade-portal"],
         confirmed: true,
       },
-      { name: "PostgreSQL & SQL", usedIn: ["workbud", "consulttrack", "libspace"], confirmed: true },
-      { name: "Row Level Security", usedIn: ["workbud", "consulttrack", "libspace"], confirmed: true },
+      { name: "PostgreSQL & SQL", usedIn: ["workbud", "consulttrack", "libspace", "grade-portal"], confirmed: true },
+      { name: "Row Level Security", usedIn: ["workbud", "consulttrack", "libspace", "drezzit", "grade-portal"], confirmed: true },
       {
         name: "SQL functions, triggers & constraints",
         usedIn: ["workbud", "libspace"],
@@ -995,12 +1237,12 @@ export const skillGroups: SkillGroup[] = [
       { name: "Rate limiting", usedIn: ["workbud", "consulttrack"], confirmed: true },
       {
         name: "Generative AI integration",
-        usedIn: ["tulongguro"],
+        usedIn: ["tulongguro", "ai-video-clipper"],
         confirmed: true,
       },
       {
         name: "Python",
-        usedIn: ["intelsy-ppe"],
+        usedIn: ["intelsy-ppe", "ai-video-clipper"],
         confirmed: true,
         note: "On your CV. Also seen in OPSYS_FINAL, which isn't listed.",
       },
@@ -1033,7 +1275,7 @@ export const skillGroups: SkillGroup[] = [
     skills: [
       {
         name: "Supabase (Auth, Realtime, Storage)",
-        usedIn: ["workbud", "consulttrack", "libspace"],
+        usedIn: ["workbud", "consulttrack", "libspace", "drezzit", "grade-portal"],
         confirmed: true,
       },
       { name: "Vercel", usedIn: ["workbud", "consulttrack", "libspace"], confirmed: true },
