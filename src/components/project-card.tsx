@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { BrowserFrame, caseStudyTransition, hostOf } from "@/components/browser-frame";
+import { BrowserFrame, hostOf } from "@/components/browser-frame";
 import { ProjectLinks } from "@/components/project-links";
 import { TechList } from "@/components/tech-list";
 import { projectKindLabel, type Project } from "@/data/portfolio";
@@ -19,17 +19,11 @@ export function ProjectCard({ project }: { project: Project }) {
 
   return (
     <article aria-labelledby={`card-${project.slug}`} className="flex h-full flex-col">
-      <Link
-        href={href}
-        transitionTypes={caseStudyTransition}
-        aria-label={`${project.title} case study`}
-        className="group/shot block"
-      >
+      <Link href={href} aria-label={`${project.title} case study`} className="group/shot block">
         {project.cover ? (
           <BrowserFrame
             image={project.cover}
             host={hostOf(project.liveUrl)}
-            morph={project.slug}
             sizes="(min-width: 1152px) 480px, (min-width: 768px) 50vw, 100vw"
           />
         ) : (
@@ -57,11 +51,7 @@ export function ProjectCard({ project }: { project: Project }) {
           </p>
         ) : null}
         <h2 id={`card-${project.slug}`} className="mt-3 font-display text-3xl leading-none">
-          <Link
-            href={href}
-            transitionTypes={caseStudyTransition}
-            className="transition-colors hover:text-ink"
-          >
+          <Link href={href} className="transition-colors hover:text-ink">
             {project.title}
           </Link>
         </h2>
@@ -75,7 +65,6 @@ export function ProjectCard({ project }: { project: Project }) {
         <div className="mt-auto flex flex-wrap items-center gap-x-6 gap-y-2 pt-6 text-sm">
           <Link
             href={href}
-            transitionTypes={caseStudyTransition}
             className="group inline-flex items-center gap-1.5 py-1 font-medium text-ink"
           >
             Read case study

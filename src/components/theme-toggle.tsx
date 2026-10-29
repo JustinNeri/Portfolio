@@ -20,12 +20,12 @@ function applyTheme(next: "light" | "dark") {
  * theme is the `dark` class on <html>, so the icons are swapped with CSS and
  * the button renders the same on the server and in the browser.
  *
- * Where view transitions are supported, the new theme spreads out in a circle
- * from the button (see `.theme-switching` in globals.css); otherwise, and for
- * reduced motion, it switches at once.
+ * Where view transitions are supported, the page crossfades to the new theme
+ * (see `.theme-switching` in globals.css); otherwise, and for reduced motion,
+ * it switches at once.
  */
 export function ThemeToggle({ className }: { className?: string }) {
-  function toggle(origin: HTMLElement) {
+  function toggle() {
     const root = document.documentElement;
     const next = root.classList.contains("dark") ? "light" : "dark";
 
@@ -37,30 +37,8 @@ export function ThemeToggle({ className }: { className?: string }) {
       return;
     }
 
-    const rect = origin.getBoundingClientRect();
-    const x = rect.left + rect.width / 2;
-    const y = rect.top + rect.height / 2;
-    const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
-
     root.classList.add("theme-switching");
     const transition = document.startViewTransition(() => applyTheme(next));
-    transition.ready
-      .then(() => {
-        root.animate(
-          {
-            clipPath: [
-              `circle(0px at ${x}px ${y}px)`,
-              `circle(${radius}px at ${x}px ${y}px)`,
-            ],
-          },
-          {
-            duration: 600,
-            easing: "cubic-bezier(0.22, 1, 0.36, 1)",
-            pseudoElement: "::view-transition-new(root)",
-          },
-        );
-      })
-      .catch(() => {});
     transition.finished.finally(() => root.classList.remove("theme-switching"));
   }
 
@@ -68,7 +46,7 @@ export function ThemeToggle({ className }: { className?: string }) {
     <Button
       variant="ghost"
       size="icon-lg"
-      onClick={(event) => toggle(event.currentTarget)}
+      onClick={toggle}
       aria-label="Switch between dark and light mode"
       className={className}
     >

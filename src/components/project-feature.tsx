@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { BrowserFrame, caseStudyTransition, hostOf } from "@/components/browser-frame";
+import { BrowserFrame, hostOf } from "@/components/browser-frame";
 import { projectMeta } from "@/components/project-card";
 import { ProjectLinks } from "@/components/project-links";
 import { TechList } from "@/components/tech-list";
@@ -29,14 +29,12 @@ export function ProjectFeature({
       {project.cover ? (
         <Link
           href={href}
-          transitionTypes={caseStudyTransition}
           aria-label={`${project.title} case study`}
           className={cn("group/shot block lg:col-span-7", flip && "lg:order-2")}
         >
           <BrowserFrame
             image={project.cover}
             host={hostOf(project.liveUrl)}
-            morph={project.slug}
             sizes="(min-width: 1152px) 560px, (min-width: 1024px) 50vw, 100vw"
           />
         </Link>
@@ -53,11 +51,7 @@ export function ProjectFeature({
           id={`project-${project.slug}`}
           className="mt-3 font-display text-3xl leading-none sm:text-4xl"
         >
-          <Link
-            href={href}
-            transitionTypes={caseStudyTransition}
-            className="transition-colors hover:text-ink"
-          >
+          <Link href={href} className="transition-colors hover:text-ink">
             {project.title}
           </Link>
         </h3>
@@ -71,7 +65,6 @@ export function ProjectFeature({
         <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
           <Link
             href={href}
-            transitionTypes={caseStudyTransition}
             className="group inline-flex items-center gap-1.5 py-1 font-medium text-ink"
           >
             Read case study
