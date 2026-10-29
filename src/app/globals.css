@@ -155,25 +155,143 @@
   letter-spacing: 0.005em;
 }
 
+/* Nav link whose accent underline draws in from the left on hover. */
+@utility nav-link {
+  background-image: linear-gradient(var(--ink), var(--ink));
+  background-position: left calc(100% - 0.25rem);
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  transition:
+    background-size 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.2s ease;
+  &:hover,
+  &:focus-visible {
+    background-size: 100% 1px;
+  }
+}
+
 /*
- * Page fade: each route fades in on arrival; see app/template.tsx. Opacity
- * only, and `backwards` so nothing lingers on the wrapper once it ends.
+ * Route transitions (view transitions; see app/template.tsx): the old page
+ * leaves quickly with a soft blur, the new one settles in just behind it.
+ * The header stays put so there's a fixed anchor while the content changes.
+ */
+.site-header {
+  view-transition-name: site-header;
+}
+::view-transition {
+  pointer-events: none;
+}
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+::view-transition-old(site-header) {
+  display: none;
+}
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+::view-transition-old(.page) {
+  animation: 180ms cubic-bezier(0.4, 0, 1, 1) both page-out;
+}
+::view-transition-new(.page) {
+  animation: 520ms cubic-bezier(0.22, 1, 0.36, 1) 120ms both page-in;
+}
+@keyframes page-out {
+  to {
+    opacity: 0;
+    filter: blur(4px);
+    transform: translateY(-6px);
+  }
+}
+@keyframes page-in {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(14px);
+  }
+}
+
+/* A project screenshot glides from its card into the case study's cover. */
+::view-transition-group(.morph) {
+  animation-duration: 560ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+::view-transition-image-pair(.morph) {
+  animation: 560ms via-blur;
+}
+@keyframes via-blur {
+  35% {
+    filter: blur(3px);
+  }
+}
+
+/*
+ * Theme switch: the new theme spreads out in a circle from the toggle; see
+ * components/theme-toggle.tsx. The header joins the page snapshot meanwhile,
+ * so it changes along with everything else.
+ */
+.theme-switching .site-header {
+  view-transition-name: none;
+}
+.theme-switching::view-transition-old(root),
+.theme-switching::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*),
+  ::view-transition-image-pair(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}
+
+/*
+ * Hero entrance: the lines arrive one after another (each `--i` apart),
+ * coming into focus as they rise, while the portrait and its glow fade up
+ * behind them. `backwards` so nothing lingers once it ends.
  */
 @media (prefers-reduced-motion: no-preference) {
-  .page-in {
-    animation: page-in 0.35s ease-out backwards;
+  .hero-in {
+    animation: hero-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    animation-delay: calc(var(--i, 0) * 90ms + 80ms);
   }
-  @keyframes page-in {
+  @keyframes hero-in {
     from {
       opacity: 0;
+      filter: blur(8px);
+      transform: translateY(18px);
+    }
+  }
+  .hero-portrait {
+    animation: hero-portrait 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.15s backwards;
+  }
+  @keyframes hero-portrait {
+    from {
+      opacity: 0;
+      transform: translateY(28px) scale(0.97);
+    }
+  }
+  .hero-glow {
+    animation: hero-glow 1.8s ease-out backwards;
+  }
+  @keyframes hero-glow {
+    from {
+      opacity: 0;
+      transform: scale(0.85);
     }
   }
 }
 
 /*
- * Scroll reveal: a soft fade with only a slight lift, so nothing travels far
- * while the page scrolls. Only hidden when motion is welcome; see
- * components/reveal.tsx.
+ * Scroll reveal: a soft fade that comes into focus as it lifts, without
+ * travelling far while the page scrolls. Only hidden when motion is welcome;
+ * see components/reveal.tsx.
  *
  * `.reveal-item` children of a reveal follow one after another, each delayed
  * by its `--i` (set with revealOrder in lib/reveal.ts), capped so long lists
@@ -183,10 +301,12 @@
   .reveal,
   .reveal-item {
     opacity: 0;
-    transform: translateY(8px);
+    filter: blur(6px);
+    transform: translateY(16px);
     transition:
-      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+      opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+      filter 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
   }
   .reveal-item {
     transition-delay: calc(min(var(--i, 0), 6) * 70ms + 80ms);
@@ -194,6 +314,7 @@
   .reveal[data-in="true"],
   .reveal[data-in="true"] .reveal-item {
     opacity: 1;
+    filter: none;
     transform: none;
     animation: none;
   }
@@ -206,6 +327,7 @@
   @keyframes reveal-fallback {
     to {
       opacity: 1;
+      filter: none;
       transform: none;
     }
   }

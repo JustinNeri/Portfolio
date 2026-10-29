@@ -113,6 +113,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
               host={hostOf(project.liveUrl)}
               sizes="(min-width: 1152px) 960px, 100vw"
               priority
+              morph={project.slug}
             />
           </figure>
         ) : null}

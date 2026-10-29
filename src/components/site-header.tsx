@@ -18,7 +18,7 @@ export function SiteHeader() {
   const items = getNavItems();
 
   return (
-    <header className="sticky top-0 z-40 border-b border-rule bg-background/85 backdrop-blur-md">
+    <header className="site-header sticky top-0 z-40 border-b border-rule bg-background/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-5 sm:px-8 2xl:max-w-[100rem] 2xl:px-14">
         <Link
           href="/"
@@ -50,7 +50,7 @@ export function SiteHeader() {
                   ) : (
                     <Link
                       href={item.href}
-                      className="py-2 text-muted-foreground transition-colors hover:text-foreground"
+                      className="nav-link py-2 text-muted-foreground hover:text-foreground"
                     >
                       {item.label}
                     </Link>
