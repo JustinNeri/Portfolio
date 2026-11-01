@@ -1015,6 +1015,182 @@ export const projects: Project[] = [
   },
 
   {
+    slug: "trippycal",
+    title: "Trippycal",
+    tagline: "Philippine Trip Cost Calculator",
+    description:
+      "An individual project that estimates what a drive in the Philippines will cost: distance, travel time, fuel or electricity use, expressway tolls and the total, for gasoline, diesel, hybrid, plug-in hybrid and electric vehicles. It needs no account, and anything you save stays in your browser.",
+    problem:
+      "Drivers planning a trip usually add up fuel and tolls by hand from several websites, and toll fares in particular are scattered across operators, the Toll Regulatory Board and news reports. Trippycal puts the whole cost in one place and labels where every number came from, leaving a value blank rather than showing one it can't back up.",
+    features: [
+      "Real road routes on OpenStreetMap data, with alternates and a separately computed toll-free route, each showing its own toll total.",
+      "Philippine place search and opt-in current location.",
+      "Fuel and electricity cost that applies city and highway efficiency to their own share of the route.",
+      "Electric and plug-in hybrid modes with battery percentage used, arrival charge and low-charge warnings.",
+      "Vehicle search across 15,948 US EPA fuel economy records, a list of 94 common Philippine models, and custom vehicles with your own km/L.",
+      "Expressway tolls priced entry to exit from official TRB matrices, TRB-approved fares reported in the news, or a third-party compilation, each labelled by source.",
+      "A trip budget that adds per-day, per-person and quantity-based expenses to the route cost and tracks what was actually spent.",
+      "Import of a PDF or Word expense guide, read in the browser, with every line reviewed before it is added.",
+      "Export of the budget as a PDF or an editable Word report.",
+    ],
+    decisions: [
+      {
+        title: "Every figure is labelled by its source",
+        detail:
+          "Each value on screen is marked as a verified source, a government test rating, your own value, an estimate or unavailable. A toll section without a known fare shows as unavailable and the total as incomplete, never as zero.",
+      },
+      {
+        title: "Tolls are priced per toll system, not per road name",
+        detail:
+          "The routing engine's road names don't match how tolls are charged, so the route's toll plazas are split into toll systems first. Integrated systems such as NLEX–SCTEX are one fare, and hand-over points count as the exit of one system and the entry of the next.",
+      },
+      {
+        title: "The calculation engine is separate from the UI",
+        detail:
+          "Units, energy, tolls, trip cost and budget maths are plain TypeScript with no UI code, covered by 142 unit tests.",
+      },
+      {
+        title: "Provider calls stay on the server",
+        detail:
+          "Routing and place search go through serverless API routes that validate input, restrict locations to the Philippines, cache results and rate-limit each IP, so provider URLs and keys never reach the browser.",
+      },
+    ],
+
+    // TODO(justin): the repository includes plan.md and add.md, the build
+    // prompts the app started from, so say what you wrote yourself versus with
+    // AI tools — as WorkBud does. The "My contribution" block stays hidden
+    // until then.
+    contribution: null,
+
+    technologies: [
+      "React 18",
+      "TypeScript",
+      "Vite",
+      "Tailwind CSS 4",
+      "MapLibre GL",
+      "Valhalla (routing)",
+      "Photon (geocoding)",
+      "Vercel Functions",
+      "jsPDF & docx",
+      "pdf.js & mammoth",
+      "Vitest",
+    ],
+    kind: "individual",
+    year: "2026",
+    // TODO(justin): the repository is private, so a link would show visitors a
+    // 404. Make it public and set repoUrl to source.repository to show it.
+    repoUrl: null,
+    // TODO(justin): add the live URL if it is deployed.
+    liveUrl: null,
+    // TODO(justin): add a capture of the planner to public/projects/trippycal/.
+    cover: null,
+    gallery: [],
+    featured: false,
+    published: true,
+    source: {
+      repository: "https://github.com/JustinNeri/TrippyCal",
+      files: [
+        "README.md",
+        "package.json",
+        "vercel.json",
+        "plan.md",
+        "add.md",
+        "src/domain/__tests__/, src/services/__tests__/ (test counts)",
+      ],
+      notes:
+        "Private repository (GitHub returned 404 to a signed-out request on 2026-11-01); you are the only committer (19 commits, 31 Oct – 1 Nov 2026). plan.md and add.md are prompts for an AI coding tool. Features are as documented in the README — the app was not run, and the tests were not run. No live URL is given in the repository.",
+    },
+  },
+
+  {
+    slug: "mappy",
+    title: "Mappy",
+    tagline: "Route Planner with Toll Estimates and Live Group Drives",
+    description:
+      "An individual project: a map-first route planner for the Philippines. It compares routes, detects the expressways each one uses, estimates tolls and fuel cost, and gives turn-by-turn navigation. Group Drive lets friends join a trip by invitation and see each other's live position, route and arrival time.",
+    problem:
+      "General-purpose map apps show the fastest route but not what each route costs in tolls, and friends driving to the same place in separate cars lose track of each other. Mappy answers which route is fastest, which uses expressways, what each costs, and where everyone in the group is.",
+    features: [
+      "Philippine place search, current location and map-pin selection, with real routes and alternatives ranked fastest first.",
+      "Toll-free and avoid-expressway options; every returned route is re-checked and flagged if it still uses one.",
+      "Expressway detection from real road data, with entry and exit plazas and a toll breakdown per route.",
+      "Fuel and total trip cost, one way or round trip.",
+      "Turn-by-turn navigation with spoken directions, off-route detection and a screen that stays awake.",
+      "Group Drive: trips joined by link or code, live location sharing, car markers, each member's route and ETA, and regroup alerts.",
+      "Community road reports that expire automatically.",
+      "Accounts with email verification, password reset and optional Google sign-in, plus saved vehicles, places, routes and trip history.",
+      "Installable as an app.",
+    ],
+    decisions: [
+      {
+        title: "Invitations are checked in the database",
+        detail:
+          "Joining a trip goes through a database function that checks the invitation hasn't expired or been revoked, applies its usage limit under a row lock, and rate-limits failed attempts. Invite links use 256-bit random tokens.",
+      },
+      {
+        title: "Live location is kept to a minimum",
+        detail:
+          "A position can be written only by its owner, only while sharing is on, and only for a trip that hasn't ended. Only the latest position is stored, and stopping, leaving or ending the trip deletes it.",
+      },
+      {
+        title: "Tolls are never hard-coded",
+        detail:
+          "Fares come from imported rate matrices with an effective date and a source on every row. If the real entry or exit plaza isn't in the data, the stretch is reported as unpriced rather than charged from the wrong interchange, and rates from third-party sources are labelled unverified.",
+      },
+      {
+        title: "Money is counted in centavos",
+        detail:
+          "Amounts are stored as fixed-precision decimals and computed in integer centavos, so totals don't drift from floating-point rounding.",
+      },
+    ],
+
+    // TODO(justin): the repository's README is the build prompt the app
+    // started from, so say what you wrote yourself versus with AI tools — as
+    // WorkBud does. The "My contribution" block stays hidden until then.
+    contribution: null,
+
+    technologies: [
+      "React 19",
+      "TypeScript",
+      "Vite",
+      "Tailwind CSS 4",
+      "React Router",
+      "TanStack Query",
+      "React Hook Form & Zod",
+      "Supabase (Auth, Postgres, Realtime)",
+      "Row Level Security",
+      "MapLibre GL",
+      "Valhalla (routing)",
+      "Vitest",
+    ],
+    kind: "individual",
+    year: "2026",
+    // TODO(justin): the repository is private, so a link would show visitors a
+    // 404. Make it public and set repoUrl to source.repository to show it.
+    repoUrl: null,
+    // TODO(justin): add the live URL if it is deployed.
+    liveUrl: null,
+    // TODO(justin): add a capture of the planner or Group Drive to
+    // public/projects/mappy/.
+    cover: null,
+    gallery: [],
+    featured: false,
+    published: true,
+    source: {
+      repository: "https://github.com/JustinNeri/Mappy",
+      files: [
+        "README.MD",
+        "docs/SETUP.md",
+        "package.json",
+        "public/manifest.webmanifest",
+        "supabase/migrations/",
+      ],
+      notes:
+        "Private repository (GitHub returned 404 to a signed-out request on 2026-11-01); you are the only committer (17 commits, 31 Oct 2026). The README is a prompt for an AI coding tool, so the features above come from docs/SETUP.md (section 9, implementation status), the migrations and the source file names. The toll data is mostly from a third-party site and stored as unverified; only the Skyway–SLEX–MCX matrix is official. The app was not run, and the tests were not run. No live URL is given in the repository.",
+    },
+  },
+
+  {
     slug: "carepanion",
     title: "Carepanion",
     tagline: "Voice-Driven Reminder App for Wellness and Daily Care",
@@ -1298,11 +1474,11 @@ export const skillGroups: SkillGroup[] = [
   {
     title: "Frontend",
     skills: [
-      { name: "React", usedIn: ["workbud", "consulttrack", "libspace", "drezzit"], confirmed: true },
+      { name: "React", usedIn: ["workbud", "consulttrack", "libspace", "drezzit", "trippycal", "mappy"], confirmed: true },
       { name: "JavaScript", usedIn: ["workbud", "consulttrack", "libspace", "drezzit"], confirmed: true },
       { name: "HTML & CSS", usedIn: ["workbud", "consulttrack", "libspace"], confirmed: true },
-      { name: "Tailwind CSS", usedIn: ["workbud", "consulttrack", "libspace", "drezzit", "grade-portal"], confirmed: true },
-      { name: "Vite", usedIn: ["workbud", "consulttrack", "libspace", "drezzit"], confirmed: true },
+      { name: "Tailwind CSS", usedIn: ["workbud", "consulttrack", "libspace", "drezzit", "grade-portal", "trippycal", "mappy"], confirmed: true },
+      { name: "Vite", usedIn: ["workbud", "consulttrack", "libspace", "drezzit", "trippycal", "mappy"], confirmed: true },
       {
         name: "Flutter & Dart",
         usedIn: ["carepanion", "monster-control-center"],
@@ -1310,9 +1486,9 @@ export const skillGroups: SkillGroup[] = [
       },
       {
         name: "TypeScript",
-        usedIn: ["grade-portal", "ai-video-clipper"],
+        usedIn: ["grade-portal", "ai-video-clipper", "trippycal", "mappy"],
         confirmed: false,
-        note: "TODO(justin): not on your CV, but Grade Portal and AI Video Clipper are written in it, as is this portfolio. Set confirmed to true to show it.",
+        note: "TODO(justin): not on your CV, but Grade Portal, AI Video Clipper, Trippycal and Mappy are written in it, as is this portfolio. Set confirmed to true to show it.",
       },
       {
         name: "Next.js",
@@ -1329,11 +1505,11 @@ export const skillGroups: SkillGroup[] = [
       { name: "REST API development", usedIn: ["workbud", "consulttrack"], confirmed: true },
       {
         name: "Authentication & role-based access",
-        usedIn: ["workbud", "consulttrack", "libspace", "grade-portal"],
+        usedIn: ["workbud", "consulttrack", "libspace", "grade-portal", "mappy"],
         confirmed: true,
       },
-      { name: "PostgreSQL & SQL", usedIn: ["workbud", "consulttrack", "libspace", "grade-portal"], confirmed: true },
-      { name: "Row Level Security", usedIn: ["workbud", "consulttrack", "libspace", "drezzit", "grade-portal"], confirmed: true },
+      { name: "PostgreSQL & SQL", usedIn: ["workbud", "consulttrack", "libspace", "grade-portal", "mappy"], confirmed: true },
+      { name: "Row Level Security", usedIn: ["workbud", "consulttrack", "libspace", "drezzit", "grade-portal", "mappy"], confirmed: true },
       {
         name: "SQL functions, triggers & constraints",
         usedIn: ["workbud", "libspace"],
@@ -1380,7 +1556,7 @@ export const skillGroups: SkillGroup[] = [
     skills: [
       {
         name: "Supabase (Auth, Realtime, Storage)",
-        usedIn: ["workbud", "consulttrack", "libspace", "drezzit", "grade-portal"],
+        usedIn: ["workbud", "consulttrack", "libspace", "drezzit", "grade-portal", "mappy"],
         confirmed: true,
       },
       { name: "Vercel", usedIn: ["workbud", "consulttrack", "libspace"], confirmed: true },
