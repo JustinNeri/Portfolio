@@ -1082,8 +1082,13 @@ export const projects: Project[] = [
     repoUrl: null,
     // TODO(justin): add the live URL if it is deployed.
     liveUrl: null,
-    // TODO(justin): add a capture of the planner to public/projects/trippycal/.
-    cover: null,
+    // A capture of the planner (supplied by you), cropped to 16:10.
+    cover: {
+      src: "/projects/trippycal/cover.webp",
+      alt: "Trippycal planner in dark mode: a Plan your trip panel with From and To fields, a Toyota Innova diesel at 8.2 km/L city and 18.7 highway, a ₱90 diesel price and a Calculate trip button, beside a map of Luzon and popular trips such as Makati to Baguio",
+      width: 1384,
+      height: 865,
+    },
     gallery: [],
     featured: false,
     published: true,
@@ -1170,9 +1175,14 @@ export const projects: Project[] = [
     repoUrl: null,
     // TODO(justin): add the live URL if it is deployed.
     liveUrl: null,
-    // TODO(justin): add a capture of the planner or Group Drive to
-    // public/projects/mappy/.
-    cover: null,
+    // A capture of the landing page (supplied by you), cropped to 16:10 with
+    // the plain dark background extended at the top so the phone isn't cut.
+    cover: {
+      src: "/projects/mappy/cover.webp",
+      alt: "Mappy landing page with the headline “Smarter routes. Longer journeys together.” beside a phone showing three routes to Manila with their times and tolls, a ₱670 total trip cost card and a Group Drive card reading “3 cars on the way”",
+      width: 1640,
+      height: 1025,
+    },
     gallery: [],
     featured: false,
     published: true,
