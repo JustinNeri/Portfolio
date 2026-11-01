@@ -34,6 +34,8 @@ export type SiteConfig = {
   url: string | null;
   contact: {
     email: string | null;
+    /** Philippine mobile number, written as it should be displayed. */
+    phone: string | null;
     github: string | null;
     linkedin: string | null;
   };
@@ -168,6 +170,7 @@ export const site: SiteConfig = {
 
   contact: {
     email: "justinneripangilinan2004@gmail.com",
+    phone: "0906 222 2170",
     github: "https://github.com/JustinNeri",
     linkedin: "https://www.linkedin.com/in/justin-neri-pangilinan-564527398/",
   },

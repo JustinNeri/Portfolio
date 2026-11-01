@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { ArrowUpRight, FileText, Mail } from "lucide-react";
+import { ArrowUpRight, FileText, Mail, Phone } from "lucide-react";
 import { GitHubIcon, LinkedInIcon } from "@/components/icons";
 import { Reveal } from "@/components/reveal";
 import { Section } from "@/components/section";
@@ -19,9 +19,15 @@ function displayUrl(url: string): string {
   return url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
 }
 
+/** Turns a local Philippine number ("0906 222 2170") into "+639062222170" for tel: links. */
+function telHref(phone: string): string {
+  const digits = phone.replace(/\D/g, "");
+  return `tel:${digits.startsWith("0") ? `+63${digits.slice(1)}` : `+${digits}`}`;
+}
+
 /** Only the channels that have real details in the data file. */
 function getChannels(): Channel[] {
-  const { email, github, linkedin } = site.contact;
+  const { email, phone, github, linkedin } = site.contact;
   const channels: Channel[] = [];
 
   if (email) {
@@ -30,6 +36,15 @@ function getChannels(): Channel[] {
       value: email,
       href: `mailto:${email}`,
       icon: <Mail aria-hidden="true" className="size-5" />,
+      external: false,
+    });
+  }
+  if (phone) {
+    channels.push({
+      label: "Phone",
+      value: phone,
+      href: telHref(phone),
+      icon: <Phone aria-hidden="true" className="size-5" />,
       external: false,
     });
   }
